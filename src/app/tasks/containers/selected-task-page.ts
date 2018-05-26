@@ -46,10 +46,10 @@ import { UUID } from 'angular2-uuid';
       (pauseClicked)="resumeClicked($event)"
       (reset)="resumeClicked($event)">
     </app-task-detail>
-    <app-pomo-tracker></app-pomo-tracker>
+    <app-pomo-tracker [pomos]="pomos$ | async"></app-pomo-tracker>
     </div>
   `,
-
+//
 })
 
 export class SelectedTaskPageComponent implements OnInit, AfterViewInit {
@@ -83,8 +83,8 @@ export class SelectedTaskPageComponent implements OnInit, AfterViewInit {
     // this.pomos$.pipe(concatMap(pomos => this.pomos = pomos));
     // this.pomos$.subscribe(pomos => console.log('these are the pomos', pomos));
     // this.pomos$.pipe(concatMap(pomos => this.pomos)).subscribe(pomos => console.log(pomos));
-    this.pomos$.subscribe(pomos => console.log('these are the pomos', pomos));
-    this.pomos$.subscribe(pomos => this.pomos = pomos);
+    this.pomos$.subscribe(pomos => console.log('these are the pomos from constructor', pomos));
+
   }
 
   ngOnInit(): void {
@@ -106,7 +106,11 @@ export class SelectedTaskPageComponent implements OnInit, AfterViewInit {
       }
     });
 
-    // this.pomos$.subscribe();
+    this.pomos$.subscribe(pomos => {
+      console.log('these are the pomos from NgOnInit' , pomos),
+      this.pomos = pomos;
+    });
+
     // this.pomos$.pipe(concatMap(pomos => this.pomos));
     // this.pomos$.pipe(map(pomos => this.pomos = pomos));
     // this.pomos$.pipe(concatMap(pomos => this.pomos = pomos));

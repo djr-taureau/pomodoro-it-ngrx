@@ -24,7 +24,7 @@ import * as taskPomo from '../actions/collection';
       <div class="pomo-container mat-elevation-z8">
         <div class="pomo-header">
         <mat-list><mat-list-item>This is for the pomos: WHERE ARE THEY</mat-list-item></mat-list>
-        <mat-list *ngFor="let pomo of pomos | async">
+        <mat-list *ngFor="let pomo of pomos">
           <mat-list-item>{{ pomo.notes }}</mat-list-item>
         </mat-list>
         </div>
@@ -63,7 +63,7 @@ import * as taskPomo from '../actions/collection';
   ],
 })
 export class PomoTrackerComponent implements OnInit {
-  // @Input() pomos: Pomo[];
+  @Input() pomos: Pomo[];
   index: number;
   id: string;
   task_id;
@@ -71,24 +71,18 @@ export class PomoTrackerComponent implements OnInit {
   notes: string;
   // isPublished: boolean;
   // selectedPomoId: string;
-  pomos$: Observable<Pomo[]>;
-  pomos: Pomo[];
+  // pomos$: Observable<Pomo[]>;
+  // pomos: Pomo[];
 
   constructor(private store: Store<fromTasks.State>, route: ActivatedRoute, private pomoQuery: PomoQueryService) {
     const snapshot = route.snapshot;
-    this.pomos$ = this.pomoQuery.getTaskPomos(snapshot.params.id);
-    // this.pomos$.pipe(map(pomos => this.pomos = pomos));
-    this.pomos$.subscribe(pomos => console.log('these are the pomos from pomoTracker', pomos));
-    this.pomos$.pipe(map((pomos: Pomo[]) => this.pomos = pomos));
-    console.log('are the pomos working', this.pomos);
-    // this.pomos$.pipe(
-    //   map((pomos: Pomo[]) => this.pomosArray));
-    // console.log('this is the pomos aray', this.pomosArray);
+    // this.pomos$ = this.pomoQuery.getTaskPomos(snapshot.params.id);
+    // this.pomos$.pipe(map((pomos: Pomo[]) => this.pomos = pomos));
+    //
   }
 
   ngOnInit() {
    //
-   // this.pomos$.pipe(concatMap(pomos => this.pomos = pomos));
   }
 
   getPomos () {
