@@ -2,7 +2,7 @@ import { Component, Output, Input, EventEmitter } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'bc-task-search',
+  selector: 'app-task-search',
   template: `
     <mat-card>
       <mat-card-title>Find a Task</mat-card-title>

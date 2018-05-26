@@ -18,7 +18,7 @@ import * as taskPomo from '../actions/collection';
 
 
 @Component({
-  selector: 'bc-pomo-tracker',
+  selector: 'app-pomo-tracker',
   template: `
     <div class="mdl-cell mdl-cell--6-col">
       <div class="pomo-container mat-elevation-z8">

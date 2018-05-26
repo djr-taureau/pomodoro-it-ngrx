@@ -6,23 +6,16 @@ import * as fromTasks from '../reducers';
 import * as collection from '../actions/collection';
 import { Task } from '../models/task';
 
-
 @Component({
-  selector: 'bc-collection-page',
+  selector: 'app-collection-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-card>
       <mat-card-title>My Pomodo-it Tasks</mat-card-title>
     </mat-card>
 
-    <bc-task-preview-list [tasks]="tasks$ | async"></bc-task-preview-list>
+    <app-task-preview-list [tasks]="tasks$ | async"></app-task-preview-list>
   `,
-  /**
-   * Container components are permitted to have just enough styles
-   * to bring the view together. If the number of styles grow,
-   * consider breaking them out into presentational
-   * components.
-   */
   styles: [
     `
     mat-card-title {

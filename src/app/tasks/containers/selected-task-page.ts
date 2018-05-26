@@ -29,11 +29,11 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import * as moment from 'moment';
 import { UUID } from 'angular2-uuid';
 @Component({
-  selector: 'bc-selected-task-page',
+  selector: 'app-selected-task-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
   <div class="mdl-grid">
-    <bc-task-detail
+    <app-task-detail
       [task]="task$ | async"
       [inCollection]="isSelectedTaskInCollection$"
       [pomoTitle]="this.pomoTimerService.pomoTitle$"
@@ -45,8 +45,8 @@ import { UUID } from 'angular2-uuid';
       (resumeClicked)="resumeClicked($event)"
       (pauseClicked)="resumeClicked($event)"
       (reset)="resumeClicked($event)">
-    </bc-task-detail>
-    <bc-pomo-tracker></bc-pomo-tracker>
+    </app-task-detail>
+    <app-pomo-tracker></app-pomo-tracker>
     </div>
   `,
 

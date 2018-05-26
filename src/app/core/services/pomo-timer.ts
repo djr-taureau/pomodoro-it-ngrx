@@ -34,13 +34,6 @@ export class PomoTimerService {
   audio;
   notesEntry;
 
-  // setState(state: any) {
-  //   this.timerSource$.next(state); .====
-  // }
-
-  // getState(): Observable<any> {
-  //   return this.timerSource$.asObservable();
-  // }
   private buttons;
 
   initTimer(buttons) {

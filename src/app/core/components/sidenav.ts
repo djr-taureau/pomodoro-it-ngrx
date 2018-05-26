@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'bc-sidenav',
+  selector: 'app-sidenav',
   template: `
     <mat-sidenav [opened]="open">
       <mat-nav-list>

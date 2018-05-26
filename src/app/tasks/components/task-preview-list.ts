@@ -2,9 +2,9 @@ import { Component, Input } from '@angular/core';
 import { Task } from '../models/task';
 
 @Component({
-  selector: 'bc-task-preview-list',
+  selector: 'app-task-preview-list',
   template: `
-    <bc-task-preview *ngFor="let task of tasks" [task]="task"></bc-task-preview>
+    <app-task-preview *ngFor="let task of tasks" [task]="task"></app-task-preview>
   `,
   styles: [
     `

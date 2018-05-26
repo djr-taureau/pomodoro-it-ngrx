@@ -11,7 +11,6 @@ import 'rxjs/add/observable/fromPromise';
 import TodoistApiREST, { TodoistProject } from 'todoist-api-ts';
 import { BinaryOperatorToken } from 'typescript';
 
-
 @Injectable()
 export class TodoistTasksService {
   project: any;
@@ -20,16 +19,11 @@ export class TodoistTasksService {
   comments: any;
   foobar: any;
 
-
-
-
-  //TODO Make an ENV variable for this
   api = new TodoistApiREST('33d002c531c8868f13535e7a57222d717e0ab5f4');
 
   constructor() {}
 
   getProject(id: StrInt): Observable<Project> {
-    //
     return fromPromise<Project>(this.api.getProjectById(id))
     .pipe(map(project => project));
   }
@@ -43,7 +37,6 @@ export class TodoistTasksService {
       map(tasks => tasks.filter(task => task.content.toLowerCase().indexOf(term.toLowerCase()) > -1)));
   }
 
-  //TODO Back-up plan --- just pull in the tasks labeled "in progress"
   getTasksFiltered(params: {}): Observable<Task[]> {
     return fromPromise<Task[]>(
       this.api.getTasksFiltered({ label_id: 2149154882 }));
@@ -51,15 +44,14 @@ export class TodoistTasksService {
 
   retrieveTask(id: StrInt): Observable<Task> {
     //
-    const idToString = (id: StrInt) => id.toString();
+    const idToString = (i: StrInt) => id.toString();
     return fromPromise<Task>(this.api.getTaskById(id))
     .pipe(
       map(task => task));
-    //this.foobar.map.set(idToString(`${id}`));
-    //return this.foobar;
+
   }
   //task.id.toString()
-  //concatMapTo(message, (time, msg) => `${time} ${msg}`);
+
   getTaskComments(projectId?: StrInt, taskId?: StrInt): Observable<Comment[]> {
     //
     return fromPromise<Comment[]>(this.api.getAllComments(taskId));

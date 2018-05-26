@@ -31,8 +31,6 @@ export class UserService {
    * @returns {Observable<User>} The authenticated user observable.
    */
   public authenticate(email: string, password: string): Observable<User> {
-    // Normally you would do an HTTP request to determine to
-    // attempt authenticating the user using the supplied credentials.
 
     if (email === MOCK_USER.email && password === MOCK_USER.password) {
       this._authenticated = true;
@@ -55,9 +53,7 @@ export class UserService {
    * @returns {User}
    */
   public authenticatedUser(): Observable<User> {
-    // Normally you would do an HTTP request to determine if
-    // the user has an existing auth session on the server
-    // but, let's just return the mock user for this example.
+
     return Observable.of(MOCK_USER);
   }
 
@@ -66,9 +62,7 @@ export class UserService {
    * @returns {User}
    */
   public create(user: User): Observable<User> {
-    // Normally you would do an HTTP request to POST the user
-    // details and then return the new user object
-    // but, let's just return the new user for this example.
+
     this._authenticated = true;
     return Observable.of(user);
   }
@@ -78,8 +72,6 @@ export class UserService {
    * @returns {Observable<boolean>}
    */
   public signout(): Observable<boolean> {
-    // Normally you would do an HTTP request sign end the session
-    // but, let's just return an observable of true.
     this._authenticated = false;
     return Observable.of(true);
   }

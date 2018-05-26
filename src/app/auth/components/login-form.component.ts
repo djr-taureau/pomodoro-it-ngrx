@@ -3,7 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Authenticate } from '../models/user';
 
 @Component({
-  selector: 'bc-login-form',
+  selector: 'app-login-form',
   template: `
     <mat-card>
       <mat-card-title>Login</mat-card-title>

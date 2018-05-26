@@ -1,5 +1,3 @@
-
-
 import {
   createSelector,
   createFeatureSelector,
@@ -55,16 +53,7 @@ export const reducers: ActionReducerMap<TasksState> = {
  * This is used for selecting feature states that are loaded eagerly or lazily.
  */
 export const getTasksState = createFeatureSelector<TasksState>('tasks');
-// export const getPomosState = createFeatureSelector<TasksState>('pomos');
-/**
- * Every reducer module exports selector functions, however child reducers
- * have no knowledge of the overall state tree. To make them usable, we
- * need to make new selectors that wrap them.
- *
- * The createSelector function creates very efficient selectors that are memoized and
- * only recompute when arguments change. The created selectors can also be composed
- * together to select different pieces of state.
- */
+
 export const getTaskEntitiesState = createSelector(
   getTasksState,
   state => state.tasks
@@ -103,21 +92,6 @@ export const getSelectedTask = createSelector(
   }
 );
 
-
-/**
- * Adapters created with @ngrx/entity generate
- * commonly used selector functions including
- * getting all ids in the record set, a dictionary
- * of the records by id, an array of records and
- * the total number of records. This reduces boilerplate
- * in selecting records from the entity state.
- */
-
-
-/**
- * Just like with the Tasks selectors, we also have to compose the search
- * reducer's and collection reducer's selectors.
- */
 export const getSearchState = createSelector(
   getTasksState,
   (state: TasksState) => state.search
@@ -140,10 +114,6 @@ export const getSearchError = createSelector(
   fromSearch.getError
 );
 
-/**
- * Some selector functions create joins across parts of state. This selector
- * composes the search result IDs to return an array of Tasks in the store.
- */
 export const getSearchResults = createSelector(
   getTaskEntities,
   getSearchTaskIds,
@@ -176,7 +146,6 @@ export const getCollectionTaskIds = createSelector(
   fromCollection.getIds
 );
 
-
 export const getTaskCollection = createSelector(
   getTaskEntities,
   getCollectionTaskIds,
@@ -189,8 +158,6 @@ export interface State {
   selectedTask: Task;
   allPomos: Pomo[];
 }
-
-
 // export const selectAllPomos = (state: State) => state.allPomos;
 
 // export const getPomosTask = createSelector(
@@ -204,13 +171,6 @@ export interface State {
 //     }
 //   }
 // );
-
-// export const getAllPomos = Pomo[] => {
-//   return createSelector(
-//     getPomosTask(selectedTask),
-
-//   )
-// }
 
 export const isSelectedTaskInCollection = createSelector(
   getCollectionTaskIds,

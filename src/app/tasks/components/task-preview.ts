@@ -2,17 +2,16 @@ import { Component, Input } from '@angular/core';
 import { Task } from '../models/task';
 
 @Component({
-  selector: 'bc-task-preview',
+  selector: 'app-task-preview',
   template: `
     <a [routerLink]="['/tasks', id]">
       <mat-card>
         <mat-card-title-group>
-          <img mat-card-sm-image *ngIf="thumbnail" [src]="thumbnail"/>
           <mat-card-title color="primary">{{ content }}</mat-card-title>
           <mat-card-subtitle color="secondary" *ngIf="projectId">{{ projectId }}</mat-card-subtitle>
         </mat-card-title-group>
         <mat-card-content>
-          <p>Due Date Not Working</p>
+          <p>Due Date Goes Here</p>
         </mat-card-content>
         <mat-card-footer>
         </mat-card-footer>
@@ -93,7 +92,4 @@ export class TaskPreviewComponent {
   //   return this.task.due.date;
   // }
 
-  get thumbnail(): string | boolean {
-    return false;
-  }
 }

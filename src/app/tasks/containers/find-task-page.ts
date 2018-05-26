@@ -8,15 +8,15 @@ import * as TaskActions from '../actions/task';
 import { Task } from '../models/task';
 
 @Component({
-  selector: 'bc-find-task-page',
+  selector: 'app-find-task-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <bc-task-search [query]="searchQuery$ | async"
+    <app-task-search [query]="searchQuery$ | async"
       [searching]="loading$ | async" [error]="error$ | async"
       (search)="search($event)">
-    </bc-task-search>
-    <bc-task-preview-list [tasks]="tasks$ | async">
-    </bc-task-preview-list>
+    </app-task-search>
+    <app-task-preview-list [tasks]="tasks$ | async">
+    </app-task-preview-list>
   `,
 })
 export class FindTaskPageComponent {

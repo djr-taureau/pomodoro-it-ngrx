@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'bc-nav-item',
+  selector: 'app-nav-item',
   template: `
     <a mat-list-item [routerLink]="routerLink" (click)="navigate.emit()">
       <mat-icon mat-list-icon>{{ icon }}</mat-icon>

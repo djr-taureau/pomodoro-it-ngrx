@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Login Page should compile 1`] = `
-<bc-login-form
+<app-login-form
   form={[Function FormGroup]}
   submitted={[Function EventEmitter]}
 >
@@ -118,11 +118,11 @@ exports[`Login Page should compile 1`] = `
       
   </mat-card>
     
-</bc-login-form>
+</app-login-form>
 `;
 
 exports[`Login Page should disable the form if pending 1`] = `
-<bc-login-form
+<app-login-form
   form={[Function FormGroup]}
   submitted={[Function EventEmitter]}
 >
@@ -241,11 +241,11 @@ exports[`Login Page should disable the form if pending 1`] = `
       
   </mat-card>
     
-</bc-login-form>
+</app-login-form>
 `;
 
 exports[`Login Page should display an error message if provided 1`] = `
-<bc-login-form
+<app-login-form
   errorMessage={[Function String]}
   form={[Function FormGroup]}
   submitted={[Function EventEmitter]}
@@ -371,5 +371,5 @@ exports[`Login Page should display an error message if provided 1`] = `
       
   </mat-card>
     
-</bc-login-form>
+</app-login-form>
 `;

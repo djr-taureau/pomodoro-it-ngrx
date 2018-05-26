@@ -8,37 +8,37 @@ import * as layout from '../actions/layout';
 import * as Auth from '../../auth/actions/auth';
 
 @Component({
-  selector: 'bc-app',
+  selector: 'app-app',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <bc-layout>
-      <bc-sidenav [open]="showSidenav$ | async">
-      <bc-nav-item (navigate)="closeSidenav()"
+    <app-layout>
+      <app-sidenav [open]="showSidenav$ | async">
+      <app-nav-item (navigate)="closeSidenav()"
           *ngIf="loggedIn$ | async"
           routerLink="/tasks"
           icon="assignment"
           hint="View your task collection">
         My Task Collection
-      </bc-nav-item>
-      <bc-nav-item (navigate)="closeSidenav()" *ngIf="loggedIn$ | async" routerLink="/tasks/find" icon="search" hint="Find your next task!">
+      </app-nav-item>
+      <app-nav-item (navigate)="closeSidenav()" *ngIf="loggedIn$ | async" routerLink="/tasks/find" icon="search" hint="Find your next task!">
         Find Tasks
-      </bc-nav-item>
-      <bc-nav-item (navigate)="closeSidenav()" *ngIf="loggedIn$ | async" routerLink="/tasks/find" icon="alarm" hint="Start your Timer!">
+      </app-nav-item>
+      <app-nav-item (navigate)="closeSidenav()" *ngIf="loggedIn$ | async" routerLink="/tasks/find" icon="alarm" hint="Start your Timer!">
         Start Your Timer
-      </bc-nav-item>
-        <bc-nav-item (navigate)="closeSidenav()" *ngIf="!(loggedIn$ | async)">
+      </app-nav-item>
+        <app-nav-item (navigate)="closeSidenav()" *ngIf="!(loggedIn$ | async)">
           Sign In
-        </bc-nav-item>
-        <bc-nav-item (navigate)="logout()" *ngIf="loggedIn$ | async">
+        </app-nav-item>
+        <app-nav-item (navigate)="logout()" *ngIf="loggedIn$ | async">
           Sign Out
-        </bc-nav-item>
-      </bc-sidenav>
-      <bc-toolbar (openMenu)="openSidenav()">
+        </app-nav-item>
+      </app-sidenav>
+      <app-toolbar (openMenu)="openSidenav()">
         Pomodo-it
-      </bc-toolbar>
+      </app-toolbar>
 
       <router-outlet></router-outlet>
-    </bc-layout>
+    </app-layout>
   `,
 })
 export class AppComponent {

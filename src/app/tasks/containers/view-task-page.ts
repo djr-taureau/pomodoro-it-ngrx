@@ -9,10 +9,10 @@ import * as task from '../actions/task';
 import * as pomoTasks from '../actions/collection';
 
 @Component({
-  selector: 'bc-view-task-page',
+  selector: 'app-view-task-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <bc-selected-task-page></bc-selected-task-page>
+    <app-selected-task-page></app-selected-task-page>
   `,
 })
 export class ViewTaskPageComponent implements OnDestroy {

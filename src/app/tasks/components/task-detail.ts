@@ -11,7 +11,7 @@ import {MatDialog, MatDialogConfig, MAT_DIALOG_DATA} from '@angular/material';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Component({
-  selector: 'bc-task-detail',
+  selector: 'app-task-detail',
   template: `
     <div class="grid-2 mdl-grid">
     <div class="mdl-cell mdl-cell--6-col">
@@ -21,19 +21,22 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
         <mat-card-title>{{ pomoTitle }} - {{ timerService.timerSource$ | async | minutesSeconds }}</mat-card-title>
       </mat-card-title-group>
       <mat-card-content>
-        <mat-list *ngFor="let pomo of pomos | async">
-          <mat-list-item>{{ pomo.notes }}</mat-list-item>
-        </mat-list>
+        <mat-chip-list>
+        <mat-chip>Pomo</mat-chip>
+        <mat-chip>Pomo</mat-chip>
+        <mat-chip color="primary" selected="true">Pomo</mat-chip>
+        <mat-chip color="accent" selected="true">Pomo</mat-chip>
+      </mat-chip-list>
       </mat-card-content>
       <mat-card-footer class="footer">
 
       </mat-card-footer>
       <mat-card-actions align="start">
-      <button mat-raised-button color="warn" *ngIf="inCollection" (click)="remove.emit(task)">
-        Remove Task from Collection
+      <button mat-raised-button color="warn" (click)="remove.emit(task)">
+        Remove Task
       </button>
-      <button mat-raised-button color="primary" *ngIf="!inCollection" (click)="add.emit(task)">
-      Add Task to Collection
+      <button mat-raised-button color="primary" (click)="add.emit(task)">
+      Add Task
       </button>
         <button #resume id="resume" name="resumeButton" class="resume-btn"
           mat-raised-button color="primary" (click)="resumeCommand($event)"><i class="material-icons">play_arrow</i></button>
