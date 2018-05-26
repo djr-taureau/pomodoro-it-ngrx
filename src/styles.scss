@@ -1,0 +1,27 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -ms-overflow-style: none;
+  overflow: auto;
+}
+
+.mat-progress-spinner svg {
+  width: 30px !important;
+  height: 30px !important;
+}
+
+::ng-deep .mat-input-wrapper{
+  width:600px !important;
+}
+
+mat-chip {
+  max-width: 75px;
+}
+
+
