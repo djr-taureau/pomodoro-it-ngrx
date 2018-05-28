@@ -5,8 +5,8 @@ import { RouterModule } from '@angular/router';
 import { TaskDetailComponent } from './task-detail';
 import { TaskPreviewComponent } from './task-preview';
 import { TaskPreviewListComponent } from './task-preview-list';
+import { PomoTrackerComponent } from '../pomo-tracker/pomo-tracker.component';
 import { TaskSearchComponent } from './task-search';
-import { PomoTrackerComponent} from './pomo-tracker';
 import { PipesModule } from '../../shared/pipes';
 import { MaterialModule } from '../../material';
 

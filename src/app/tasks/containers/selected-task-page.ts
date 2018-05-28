@@ -19,7 +19,8 @@ import { interval } from 'rxjs/observable/interval';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { merge } from 'rxjs/observable/merge';
 import { empty } from 'rxjs/observable/empty';
-import { switchMap, concatMap, scan, takeWhile, startWith, mapTo, map, filter, last } from 'rxjs/operators';
+import { switchMap, concatMap, scan, takeWhile, catchError,
+  startWith, mapTo, map, filter, last } from 'rxjs/operators';
 import { takeUntil } from 'rxjs/operators/takeUntil';
 import { Subscription } from 'rxjs/Subscription';
 import { TimerObservable } from 'rxjs/observable/TimerObservable';
@@ -46,7 +47,7 @@ import { UUID } from 'angular2-uuid';
       (pauseClicked)="resumeClicked($event)"
       (reset)="resumeClicked($event)">
     </app-task-detail>
-    <app-pomo-tracker [pomos]="pomos$ | async"></app-pomo-tracker>
+    <app-pomo-tracker></app-pomo-tracker>
     </div>
   `,
 //
@@ -58,14 +59,13 @@ export class SelectedTaskPageComponent implements OnInit, AfterViewInit {
   timeRemaining: any;
   isSelectedTaskInCollection$: Observable<boolean>;
   timerSource = new BehaviorSubject(null);
+  pomosSource = new BehaviorSubject(null);
   pomoDialogRef: MatDialogRef<PomoDialogComponent>;
   dialogResult: any;
   dialogRef;
   pomos: Pomo[];
   pomo;
-
-
-
+  snapshot;
 
   constructor(private dialog: MatDialog,
               public pomoTimerService: PomoTimerService,
@@ -73,9 +73,9 @@ export class SelectedTaskPageComponent implements OnInit, AfterViewInit {
               public pomoQuery: PomoQueryService,
               private store: Store<fromTasks.State>) {
     this.task$ = store.pipe(select(fromTasks.getSelectedTask));
-    const snapshot = route.snapshot;
-    this.pomos$ = this.pomoQuery.getTaskPomos(snapshot.params.id);
-
+    this.snapshot = route.snapshot;
+    this.pomos$ = this.pomoQuery.getTaskPomos();
+    // this.pomos$.subscribe(((pomos) => console.log('constructor', pomos)));
     this.isSelectedTaskInCollection$ = store.pipe(
       select(fromTasks.isSelectedTaskInCollection)
     );
@@ -83,8 +83,19 @@ export class SelectedTaskPageComponent implements OnInit, AfterViewInit {
     // this.pomos$.pipe(concatMap(pomos => this.pomos = pomos));
     // this.pomos$.subscribe(pomos => console.log('these are the pomos', pomos));
     // this.pomos$.pipe(concatMap(pomos => this.pomos)).subscribe(pomos => console.log(pomos));
-    this.pomos$.subscribe(pomos => console.log('these are the pomos from constructor', pomos));
+    // this.pomos = this.pomos$.pipe(
+    //   map(pomos => [this.pomos]),
+    //   startWith([]),
+    //   scan((acc, value) => acc.concat(value)));
+    //   console.log('this should be an array', this.pomos$);
 
+      // this.pomos = this.pomos$.pipe(
+      //   scan((acc: Pomo[], value) => {
+      //     acc.push(...value);
+      //     return acc;
+      //   })
+      // );
+      // console.log('pomos to array' , this.pomos);
   }
 
   ngOnInit(): void {
@@ -97,7 +108,6 @@ export class SelectedTaskPageComponent implements OnInit, AfterViewInit {
    this.timerSource.next(this.pomoTimerService.countdownSeconds$);
    this.timerSource = this.pomoTimerService.timerSource$;
    this.timerSource.pipe().subscribe(val => {
-
     if (val === 0 && !this.pomoTimerService.timerStarted) {
       this.pomoTimerService.soundAlarm();
       if (this.pomoTimerService.notesEntry) {
@@ -106,14 +116,18 @@ export class SelectedTaskPageComponent implements OnInit, AfterViewInit {
       }
     });
 
-    this.pomos$.subscribe(pomos => {
-      console.log('these are the pomos from NgOnInit' , pomos),
-      this.pomos = pomos;
-    });
+    this.pomos$ = this.pomoQuery.getTaskPomos();
+
+    // this.pomos$.subscribe(pomos => console.log('onInit', pomos));
+
+    // this.pomos$.pipe(map(pomos => {
+    //   console.log('these are the pomos from NgOnInit' , pomos),
+    //   this.pomos = pomos;
+    // }));
 
     // this.pomos$.pipe(concatMap(pomos => this.pomos));
     // this.pomos$.pipe(map(pomos => this.pomos = pomos));
-    // this.pomos$.pipe(concatMap(pomos => this.pomos = pomos));
+    // // this.pomos$.pipe(concatMap(pomos => this.pomos = pomos));
     // this.pomos$.subscribe(pomos => console.log('these are the pomos', pomos));
   }
 

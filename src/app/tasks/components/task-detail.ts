@@ -29,7 +29,6 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
       </mat-chip-list>
       </mat-card-content>
       <mat-card-footer class="footer">
-
       </mat-card-footer>
       <mat-card-actions align="start">
       <button mat-raised-button color="warn" (click)="remove.emit(task)">

@@ -23,6 +23,8 @@ import { CustomRouterStateSerializer } from './shared/utils';
 import { AppComponent } from './core/containers/app';
 import { environment } from '../environments/environment';
 import { NgxOAuthModule } from 'ngx-oauth-client';
+import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
+import { TestTableComponent } from './test-table/test-table.component';
 
 @NgModule({
   imports: [
@@ -47,6 +49,9 @@ import { NgxOAuthModule } from 'ngx-oauth-client';
     DBModule.provideDB(schema),
     CoreModule.forRoot(),
     AuthModule.forRoot(),
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
   ],
   providers: [
 
@@ -54,6 +59,6 @@ import { NgxOAuthModule } from 'ngx-oauth-client';
     // { provide: HTTP_INTERCEPTORS , useClass: AuthTokenService, multi: true},
   ],
   bootstrap: [AppComponent],
-  declarations: [],
+  declarations: [TestTableComponent],
 })
 export class AppModule {}
