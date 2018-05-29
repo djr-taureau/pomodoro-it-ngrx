@@ -4,6 +4,7 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {CdkTableModule} from '@angular/cdk/table';
 import {
+  MatSnackBarModule,
   MatNativeDateModule,
   MatInputModule,
   MatCardModule,
@@ -20,6 +21,7 @@ import {
 
 @NgModule({
   imports: [
+    MatSnackBarModule,
     CdkTableModule,
     MatNativeDateModule,
     MatInputModule,
@@ -37,6 +39,7 @@ import {
     MatDatepickerModule
   ],
   exports: [
+    MatSnackBarModule,
     CdkTableModule,
     MatNativeDateModule,
     MatInputModule,

@@ -6,7 +6,7 @@ import { Component, ViewEncapsulation,
   OnInit, OnDestroy, AfterViewInit, ChangeDetectionStrategy, Output, Input,
   EventEmitter, Inject, Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, formatDate } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
 import * as fromTasks from '../reducers';
 import * as collection from '../actions/collection';
@@ -26,6 +26,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { TimerObservable } from 'rxjs/observable/TimerObservable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import {MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import * as moment from 'moment';
 import { UUID } from 'angular2-uuid';
@@ -69,6 +70,7 @@ export class SelectedTaskPageComponent implements OnInit, AfterViewInit {
 
   constructor(private dialog: MatDialog,
               public pomoTimerService: PomoTimerService,
+              public snackBar: MatSnackBar,
               private route: ActivatedRoute,
               public pomoQuery: PomoQueryService,
               private store: Store<fromTasks.State>) {
@@ -135,8 +137,15 @@ export class SelectedTaskPageComponent implements OnInit, AfterViewInit {
   //
   }
 
+  openSnackBar() {
+    this.snackBar.openFromComponent(SelectedTaskPageComponent, {
+      duration: 500,
+    });
+  }
+
   addToCollection(task: Task) {
     this.store.dispatch(new collection.AddTask(task));
+    this.openSnackBar();
   }
 
   addPomoToTask(pomo: Pomo) {
@@ -145,6 +154,7 @@ export class SelectedTaskPageComponent implements OnInit, AfterViewInit {
 
   removeFromCollection(task: Task) {
     this.store.dispatch(new collection.RemoveTask(task));
+    this.openSnackBar();
   }
 
   resumeClicked(event) {
@@ -208,12 +218,8 @@ export class SelectedTaskPageComponent implements OnInit, AfterViewInit {
   template: `
   <h2 mat-dialog-title>{{ content }}</h2>
   <mat-dialog-content [formGroup]="form" connectForm="pomo">
-  <mat-form-field>
-      <input matInput formControlName="id" [disabled]="true" value="{{ id }}">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput formControlName="date" [disabled]="true">
-    </mat-form-field>
+      <input matInput formControlName="id" [disabled]="true" [hidden]="true" value="{{ id }}">
+      <input matInput formControlName="date" [disabled]="true" [hidden]="true">
     <mat-form-field>
     <input matInput placeholder="Enter your notes" formControlName="notes">
   </mat-form-field>
