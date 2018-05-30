@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 import { defer } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { filter, map, toArray } from 'rxjs/operators';
 import { Pomo } from './../../tasks/models/pomo';
 import { Database } from '@ngrx/db';
 
@@ -13,6 +13,7 @@ import { Database } from '@ngrx/db';
 export class PomoQueryService {
 
   pomos$: Observable<Pomo[]>;
+  pomosInner: any = [];
 
   openDB$: Observable<any> = defer(() => {
     return this.db.open('tasks_app');
@@ -28,6 +29,14 @@ export class PomoQueryService {
     }
 
     getTaskPomos() {
+      return this.db.query('pomos');
+     }
+
+    //  getTaskPomosNew(): Observable<Pomo[]> {
+    //   return this.db.query('pomos').pipe(map((p: Pomo) => [p]));
+    //  }
+
+     getTaskPomosNew(): Observable<Pomo[]> {
       return this.db.query('pomos');
      }
 

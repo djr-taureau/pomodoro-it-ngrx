@@ -8,14 +8,15 @@ import { Pomo } from '../models/pomo';
 @Component({
   selector: 'app-pomo-tracker',
   templateUrl: './pomo-tracker.component.html',
-  styleUrls: ['./pomo-tracker.component.css']
+  styleUrls: ['./pomo-tracker.component.scss']
 })
 export class PomoTrackerComponent implements AfterViewInit {
   // @Input() pomos$: Observable<Pomo[]>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource: MatTableDataSource<any>;
-  // pomos$: Observable<Pomo[]>;
+  pomos$: Observable<Pomo[]>;
+  pomos: Pomo[];
 
   constructor(private pomoService: PomoQueryService) {
   }
@@ -23,7 +24,8 @@ export class PomoTrackerComponent implements AfterViewInit {
   displayedColumns = ['date', 'notes', 'task_id'];
 
   ngAfterViewInit() {
-    this.pomoService.getTaskPomos().pipe().subscribe(data => {
+    this.pomos$ = this.pomoService.getTaskPomosNew();
+    this.pomos$.pipe().subscribe(data => {
       console.log('this is the data', data);
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.sort = this.sort;

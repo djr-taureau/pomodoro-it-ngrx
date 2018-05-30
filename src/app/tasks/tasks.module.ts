@@ -44,7 +44,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     ViewTaskPageComponent,
     SelectedTaskPageComponent,
     CollectionPageComponent,
-    PomoDialogComponent
+    PomoDialogComponent,
+
   ],
   entryComponents: [
     PomoDialogComponent,

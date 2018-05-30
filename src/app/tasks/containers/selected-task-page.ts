@@ -76,7 +76,7 @@ export class SelectedTaskPageComponent implements OnInit, AfterViewInit {
               private store: Store<fromTasks.State>) {
     this.task$ = store.pipe(select(fromTasks.getSelectedTask));
     this.snapshot = route.snapshot;
-    this.pomos$ = this.pomoQuery.getTaskPomos();
+    // this.pomos$ = this.pomoQuery.getTaskPomos();
     // this.pomos$.subscribe(((pomos) => console.log('constructor', pomos)));
     this.isSelectedTaskInCollection$ = store.pipe(
       select(fromTasks.isSelectedTaskInCollection)
@@ -118,7 +118,7 @@ export class SelectedTaskPageComponent implements OnInit, AfterViewInit {
       }
     });
 
-    this.pomos$ = this.pomoQuery.getTaskPomos();
+    // this.pomos$ = this.pomoQuery.getTaskPomos();
 
     // this.pomos$.subscribe(pomos => console.log('onInit', pomos));
 
@@ -137,15 +137,16 @@ export class SelectedTaskPageComponent implements OnInit, AfterViewInit {
   //
   }
 
-  openSnackBar() {
-    this.snackBar.openFromComponent(SelectedTaskPageComponent, {
-      duration: 500,
-    });
-  }
+  // openSnackBar(action: string) {
+  //   this.snackBar.openFromComponent(TaskSnackbarMessageComponent, {
+  //     duration: 500,
+  //     data: action,
+  //   });
+  // }
 
   addToCollection(task: Task) {
     this.store.dispatch(new collection.AddTask(task));
-    this.openSnackBar();
+    // this.openSnackBar('added');
   }
 
   addPomoToTask(pomo: Pomo) {
@@ -154,7 +155,7 @@ export class SelectedTaskPageComponent implements OnInit, AfterViewInit {
 
   removeFromCollection(task: Task) {
     this.store.dispatch(new collection.RemoveTask(task));
-    this.openSnackBar();
+    // this.openSnackBar('removed');
   }
 
   resumeClicked(event) {

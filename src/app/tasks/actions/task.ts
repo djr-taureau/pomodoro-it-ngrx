@@ -67,7 +67,7 @@ export class AddPomo implements Action {
 export class AddPomoSuccess implements Action {
   readonly type = TaskActionTypes.AddPomoSuccess;
 
-  constructor(public payload: Pomo) {}
+  constructor(public payload: any) {}
 }
 
 export class AddPomoFail implements Action {

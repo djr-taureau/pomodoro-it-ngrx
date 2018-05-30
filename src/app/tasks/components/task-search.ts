@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-task-search',
   template: `
     <mat-card>
-      <mat-card-title>Find a Task</mat-card-title>
       <mat-card-content>
         <form class="form" [formGroup]>
         <mat-form-field>
@@ -47,6 +46,10 @@ import { FormsModule } from '@angular/forms';
 
     .mat-form-field {
       width: 100%;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 20px;
+      height: 20px;
     }
 
     .mat-spinner {
