@@ -18,7 +18,7 @@ export class PomoTrackerDataSource extends DataSource<Pomo> {
 
   /**
    * Connect this data source to the table. The table will only update when
-   * the returned stream emits new items.
+   * the returned stream emits new items.xxz≈≈
    * @returns A stream of the items to be rendered.
    */
   connect(): Observable<Pomo[]> {

@@ -14,7 +14,7 @@ export class PomoTrackerComponent implements AfterViewInit {
   // @Input() pomos$: Observable<Pomo[]>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  dataSource: MatTableDataSource<any>;
+  dataSource: any;
   pomos$: Observable<Pomo[]>;
   pomos: Pomo[];
 
@@ -27,8 +27,8 @@ export class PomoTrackerComponent implements AfterViewInit {
     this.pomos$ = this.pomoService.getTaskPomosNew();
     this.pomos$.pipe().subscribe(data => {
       console.log('this is the data', data);
-      this.dataSource = new MatTableDataSource(data);
-      this.dataSource.sort = this.sort;
+      this.dataSource = ([{id: 23232, date: '4-3-12'}]);
+      console.log(this.dataSource);
     });
   }
   applyFilter(filterValue: string) {
