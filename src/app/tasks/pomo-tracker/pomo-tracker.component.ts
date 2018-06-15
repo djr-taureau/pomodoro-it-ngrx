@@ -30,8 +30,6 @@ export class PomoTrackerComponent implements OnInit, AfterViewInit {
     this.dataSource = new PomoTrackerDataSource(this.paginator, this.sort, this.dataPomos$);
     this.dataSource.pomosStream.subscribe();
     this.dataSource.sort = this.sort;
-    // this.dataSource.data = this.data;
-    console.log('data source data?', this.dataSource.data);
   }
 
   ngAfterViewInit() {

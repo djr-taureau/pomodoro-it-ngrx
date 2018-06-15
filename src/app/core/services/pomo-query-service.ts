@@ -36,7 +36,7 @@ export class PomoQueryService {
     //   return this.db.query('pomos').pipe(flatMap(val => val));
     //  }
 
-     getTaskPomosNew() {
+     getTaskPomosNew(): Observable<Pomo[]> {
       return this.db.query('pomos').pipe(
           toArray(),
           map((pomos: Pomo[]) => pomos));

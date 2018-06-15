@@ -22,9 +22,9 @@ export class PomoTrackerDataSource extends DataSource<Pomo> {
     //   console.log(val)
     // }
     this.pomos$ = this.dataPomos$;
-      this.data = this.pomos$.pipe(
-        flatMap(value => observableOf(this.pomosStream))
-        ).subscribe(value => console.log('is this an array', value));
+    this.data = this.pomos$.pipe(
+      flatMap(value => observableOf(this.pomosStream))
+      ).subscribe(value => console.log('is this an array', value));
   }
 
     //   this.pomos$ = this.pomos$.pipe(
@@ -41,19 +41,20 @@ export class PomoTrackerDataSource extends DataSource<Pomo> {
   connect(): Observable<Pomo[]> {
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
-    const dataMutations = [
-       observableOf(this.data),
-          this.paginator.page,
-          this.sort.sortChange
-       ];
+    // const dataMutations = [
+    //    observableOf(this.data),
+    //       this.paginator.page,
+    //       this.sort.sortChange
+    //    ];
 
     // Set the paginators length
-    this.paginator.length = this.data.length;
+    // this.paginator.length = this.data.length;
     // this.dataPomos$.subscribe(result => this.paginator.length = result.length);
 
-    return merge(...dataMutations).pipe(map(() => {
-      return this.getPagedData(this.getSortedData([...this.data]));
-     }));
+    // return merge(...dataMutations).pipe(map(() => {
+    //   return this.getPagedData(this.getSortedData([...this.data]));
+    //  }));
+    return this.pomos$;
 
   }
 
