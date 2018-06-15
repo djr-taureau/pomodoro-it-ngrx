@@ -11,7 +11,8 @@ import { Pomo } from '../../tasks/models/pomo';
 export class PomoTrackerDataSource extends DataSource<Pomo> {
   data;
   test;
-  pomosStream: BehaviorSubject<Pomo[]> = new BehaviorSubject<Pomo[]>([]);
+  pomos$: Observable<Pomo[]>;
+  public pomosStream: BehaviorSubject<Pomo[]> = new BehaviorSubject<Pomo[]>([]);
   constructor(public paginator: MatPaginator, public sort: MatSort, private dataPomos$: Observable<Pomo[]>) {
     super();
    //
@@ -20,10 +21,10 @@ export class PomoTrackerDataSource extends DataSource<Pomo> {
     // this.test.subscribe(data => {
     //   console.log(val)
     // }
-      this.data = this.dataPomos$.pipe(
+    this.pomos$ = this.dataPomos$;
+      this.data = this.pomos$.pipe(
         flatMap(value => observableOf(this.pomosStream))
-        ).subscribe();
-    // console.log('is this coming out as an array', this.data);
+        ).subscribe(value => console.log('is this an array', value));
   }
 
     //   this.pomos$ = this.pomos$.pipe(
@@ -56,9 +57,7 @@ export class PomoTrackerDataSource extends DataSource<Pomo> {
 
   }
 
-  disconnect(): void {
-    this.pomosStream.complete();
-  }
+  disconnect() {}
 
 
   // loadPomos() {

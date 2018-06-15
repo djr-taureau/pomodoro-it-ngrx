@@ -45,10 +45,3 @@ export class PomoQueryService {
      // filter((p: Pomo) => id === p.task_id.toString());
 
 }
-
-
-
-
-
-
-

@@ -12,13 +12,13 @@ import { mergeScan, scan, concatMap, mergeMap } from 'rxjs/operators';
   styleUrls: ['./pomo-tracker.component.scss']
 })
 export class PomoTrackerComponent implements OnInit, AfterViewInit {
-  // @Input() pomos$: Observable<Pomo[]>;
+  @Input() pomos$: Observable<Pomo[]>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource: PomoTrackerDataSource;
-  pomos$: Observable<Pomo[]>;
   data;
   temp;
+  dataPomos$: Observable<Pomo[]>;
 
   constructor(private pomoService: PomoQueryService) {
   }
@@ -26,12 +26,8 @@ export class PomoTrackerComponent implements OnInit, AfterViewInit {
   displayedColumns = ['date', 'notes', 'task_id'];
 
   ngOnInit() {
-    this.pomos$ = this.pomoService.getTaskPomosNew();
-    this.pomos$.subscribe(value => console.log('this is the pomos obs before going into DataSource', value));
-    // TODO map JSON Objects to an ARRAY of json objects before passing it into the dataSource
-    this.temp = this.pomos$.pipe(mergeMap(val => val));
-    this.temp.subscribe(val => console.log('test array', val));
-    this.dataSource = new PomoTrackerDataSource(this.paginator, this.sort, this.pomos$);
+    this.dataPomos$ = this.pomoService.getTaskPomosNew();
+    this.dataSource = new PomoTrackerDataSource(this.paginator, this.sort, this.dataPomos$);
     this.dataSource.pomosStream.subscribe();
     this.dataSource.sort = this.sort;
     // this.dataSource.data = this.data;
