@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 import { defer } from 'rxjs';
-import { filter, map, toArray } from 'rxjs/operators';
+import { filter, map, toArray, reduce, mergeScan, flatMap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of as observableOf, merge } from 'rxjs';
 import { Pomo } from './../../tasks/models/pomo';
 import { Database } from '@ngrx/db';
 
@@ -33,11 +33,13 @@ export class PomoQueryService {
      }
 
     //  getTaskPomosNew(): Observable<Pomo[]> {
-    //   return this.db.query('pomos').pipe(map((p: Pomo) => [p]));
+    //   return this.db.query('pomos').pipe(flatMap(val => val));
     //  }
 
-     getTaskPomosNew(): Observable<Pomo[]> {
-      return this.db.query('pomos');
+     getTaskPomosNew() {
+      return this.db.query('pomos').pipe(
+          toArray(),
+          map((pomos: Pomo[]) => pomos));
      }
 
      // filter((p: Pomo) => id === p.task_id.toString());

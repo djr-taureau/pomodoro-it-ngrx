@@ -1,7 +1,7 @@
 import { PomoQueryService } from '../../core/services/pomo-query-service';
 import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator, MatSort } from '@angular/material';
-import { map } from 'rxjs/operators';
+import { map, concatMap, flatMap, reduce, scan } from 'rxjs/operators';
 import { BehaviorSubject, Observable, of as observableOf, merge } from 'rxjs';
 import { Pomo } from '../../tasks/models/pomo';
 
@@ -10,12 +10,28 @@ import { Pomo } from '../../tasks/models/pomo';
 
 export class PomoTrackerDataSource extends DataSource<Pomo> {
   data;
-  private pomosSubject = new BehaviorSubject<Pomo[]>([]);
-  constructor(private paginator: MatPaginator, private sort: MatSort, private dataPomos$: Observable<Pomo[]>) {
+  test;
+  pomosStream: BehaviorSubject<Pomo[]> = new BehaviorSubject<Pomo[]>([]);
+  constructor(public paginator: MatPaginator, public sort: MatSort, private dataPomos$: Observable<Pomo[]>) {
     super();
-    this.data = this.dataPomos$;
+   //
+    // this.test = observableOf(this.dataPomos$)
+    //   .flatMap()
+    // this.test.subscribe(data => {
+    //   console.log(val)
+    // }
+      this.data = this.dataPomos$.pipe(
+        flatMap(value => observableOf(this.pomosStream))
+        ).subscribe();
+    // console.log('is this coming out as an array', this.data);
   }
 
+    //   this.pomos$ = this.pomos$.pipe(
+    //   scan((acc: Pomo[], value) => {
+    //     acc.push(...value);
+    //     return acc;
+    //   })
+    // );
   /**
    * Connect this data source to the table. The table will only update when
    * the returned stream emits new items.
@@ -41,13 +57,13 @@ export class PomoTrackerDataSource extends DataSource<Pomo> {
   }
 
   disconnect(): void {
-    this.pomosSubject.complete();
+    this.pomosStream.complete();
   }
 
 
-  loadPomos() {
-    this.dataPomos$.subscribe(pomos => this.pomosSubject.next(pomos));
-  }
+  // loadPomos() {
+  //   this.pomosStream.subscribe();
+  // }
 
   private getPagedData(data: Pomo[]) {
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
