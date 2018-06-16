@@ -4,72 +4,53 @@ import { MatPaginator, MatSort } from '@angular/material';
 import { map, concatMap, flatMap, reduce, scan } from 'rxjs/operators';
 import { BehaviorSubject, Observable, of as observableOf, merge } from 'rxjs';
 import { Pomo } from '../../tasks/models/pomo';
-
-
-// const POMO_DATA: pomoDataSource;
-
 export class PomoTrackerDataSource extends DataSource<Pomo> {
-  data;
-  test;
   pomos$: Observable<Pomo[]>;
   public pomosStream: BehaviorSubject<Pomo[]> = new BehaviorSubject<Pomo[]>([]);
-  constructor(public paginator: MatPaginator, public sort: MatSort, private dataPomos$: Observable<Pomo[]>) {
-    super();
-   //
-    // this.test = observableOf(this.dataPomos$)
-    //   .flatMap()
-    // this.test.subscribe(data => {
-    //   console.log(val)
-    // }
-    this.pomos$ = this.dataPomos$;
-    this.data = this.pomos$.pipe(
-      flatMap(value => observableOf(this.pomosStream))
-      ).subscribe(value => console.log('is this an array', value));
+  filter;
+  data(): Pomo[] {
+    return this.pomosStream.value;
   }
 
-    //   this.pomos$ = this.pomos$.pipe(
-    //   scan((acc: Pomo[], value) => {
-    //     acc.push(...value);
-    //     return acc;
-    //   })
-    // );
+  constructor(public paginator: MatPaginator, public sort: MatSort, private dataPomos$: Observable<Pomo[]>) {
+    super();
+    this.dataPomos$.subscribe(pomos => {
+      this.pomosStream.next(pomos);
+      pomos.length = this.paginator.length;
+    });
+  }
   /**
    * Connect this data source to the table. The table will only update when
    * the returned stream emits new items.
    * @returns A stream of the items to be rendered.
+   * @memberof PomoTrackerDataSource
+  /*
    */
   connect(): Observable<Pomo[]> {
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
+
     // const dataMutations = [
-    //    observableOf(this.data),
+    //    observableOf(this.pomosStream),
     //       this.paginator.page,
     //       this.sort.sortChange
     //    ];
 
-    // Set the paginators length
-    // this.paginator.length = this.data.length;
-    // this.dataPomos$.subscribe(result => this.paginator.length = result.length);
-
     // return merge(...dataMutations).pipe(map(() => {
     //   return this.getPagedData(this.getSortedData([...this.data]));
     //  }));
-    return this.pomos$;
+    return this.pomosStream.asObservable();
 
   }
 
-  disconnect() {}
-
-
-  // loadPomos() {
-  //   this.pomosStream.subscribe();
-  // }
+  disconnect(): void {
+    this.pomosStream.complete();
+  }
 
   private getPagedData(data: Pomo[]) {
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
     return data.splice(startIndex, this.paginator.pageSize);
   }
-
 
   private getSortedData(data: Pomo[]) {
     if (!this.sort.active || this.sort.direction === '') {

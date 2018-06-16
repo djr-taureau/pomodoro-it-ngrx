@@ -12,12 +12,10 @@ import { mergeScan, scan, concatMap, mergeMap } from 'rxjs/operators';
   styleUrls: ['./pomo-tracker.component.scss']
 })
 export class PomoTrackerComponent implements OnInit, AfterViewInit {
-  @Input() pomos$: Observable<Pomo[]>;
+  @Input() pomosStream;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource: PomoTrackerDataSource;
-  data;
-  temp;
   dataPomos$: Observable<Pomo[]>;
 
   constructor(private pomoService: PomoQueryService) {
@@ -28,17 +26,18 @@ export class PomoTrackerComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.dataPomos$ = this.pomoService.getTaskPomosNew();
     this.dataSource = new PomoTrackerDataSource(this.paginator, this.sort, this.dataPomos$);
-    this.dataSource.pomosStream.subscribe();
     this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 
   ngAfterViewInit() {
-   //
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
-  // applyFilter(filterValue: string) {
-  //   filterValue = filterValue.trim();
-  //   filterValue = filterValue.toLowerCase();
-  //   /this.dataSource.filter = filterValue;
-  // }
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim();
+    filterValue = filterValue.toLowerCase();
+    this.dataSource.filter = filterValue;
+  }
 
 }
