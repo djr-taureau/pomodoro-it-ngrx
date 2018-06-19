@@ -3,6 +3,7 @@ import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import * as fromTasks from '../reducers';
+import * as pomos from '../actions/pomo';
 import * as collection from '../actions/collection';
 import { Task } from '../models/task';
 
@@ -34,5 +35,6 @@ export class CollectionPageComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new collection.Load());
+    this.store.dispatch(new collection.LoadPomos());
   }
 }

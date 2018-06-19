@@ -1,3 +1,4 @@
+
 import { Injectable, InjectionToken, Optional, Inject } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
@@ -8,11 +9,18 @@ import { async } from 'rxjs/scheduler/async';
 import { empty } from 'rxjs/observable/empty';
 import { of } from 'rxjs/observable/of';
 import {
+  CollectionActionTypes,
+  CollectionActions,
+  LoadPomos,
+  LoadPomosSuccess,
+  LoadPomosFail
+} from '../actions/collection';
+import {
   PomoActionTypes,
   PomoActions,
-  SearchComplete,
-  SearchError,
-  Search,
+  Load,
+  LoadSuccess,
+  LoadFail
 } from '../actions/pomo';
 import { Pomo } from '../models/pomo';
 import {
@@ -22,6 +30,7 @@ import {
   skip,
   takeUntil,
   catchError,
+  toArray
 } from 'rxjs/operators';
 
 export const SEARCH_DEBOUNCE = new InjectionToken<number>('Search Debounce');
@@ -32,28 +41,19 @@ export const SEARCH_SCHEDULER = new InjectionToken<Scheduler>(
 @Injectable()
 export class PomoEffects {
   @Effect()
-  search$: Observable<Action> = this.actions$.pipe(
-    ofType<Search>(PomoActionTypes.Search),
-    debounceTime(this.debounce || 300, this.scheduler || async),
-    map(action => action.payload),
-    switchMap(query => {
-      if (query === '') {
-        return empty();
-      }
-
-      const nextSearch$ = this.actions$.pipe(
-        ofType(PomoActionTypes.Search),
-        skip(1)
-      );
-      // return this.pomoService
-      //   .searchPomos(query)
-      //   .pipe(
-      //     takeUntil(nextSearch$),
-      //     map((pomos: Pomo[]) => new SearchComplete(pomos)),
-      //     catchError(err => of(new SearchError(err)))
-      //   );
-    })
+  loadPomos$: Observable<Action> = this.actions$.pipe(
+    ofType(CollectionActionTypes.LoadPomos),
+    switchMap(() =>
+      this.db
+        .query('pomos')
+        .pipe(
+          toArray(),
+          map((pomos: Pomo[]) => new LoadSuccess(pomos)),
+          catchError(error => of(new LoadFail(error)))
+        )
+    )
   );
+
 
   constructor(
     private actions$: Actions,

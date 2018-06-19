@@ -5,9 +5,9 @@ import {
 } from '@ngrx/store';
 import * as fromSearch from './search';
 import * as fromTasks from './tasks';
+import * as fromPomos from './pomos';
 import * as fromCollection from './collection';
 import * as fromRoot from '../../reducers';
-import * as fromPomos from './pomos';
 import { createEntityAdapter } from '@ngrx/entity';
 import { getSelectedId } from './tasks';
 import { StoreRouterConnectingModule, RouterStateSerializer, routerReducer } from '@ngrx/router-store';
@@ -141,9 +141,15 @@ export const getCollectionLoading = createSelector(
   getCollectionState,
   fromCollection.getLoading
 );
+
 export const getCollectionTaskIds = createSelector(
   getCollectionState,
   fromCollection.getIds
+);
+
+export const getCollectionPomoIds = createSelector(
+  getCollectionState,
+  fromCollection.getPomoIds
 );
 
 export const getTaskCollection = createSelector(
@@ -154,23 +160,32 @@ export const getTaskCollection = createSelector(
   }
 );
 
-export interface State {
-  selectedTask: Task;
-  allPomos: Pomo[];
-}
+export const getTaskPomos = createSelector(
+  getPomoEntities,
+  getCollectionTaskIds,
+  (entities, ids) => {
+    return ids.map(id => entities[id]);
+  }
+);
+
+// export interface State {
+//   selectedTask: Task;
+//   allPomos: Pomo[];
+// }
+
 // export const selectAllPomos = (state: State) => state.allPomos;
 
-// export const getPomosTask = createSelector(
-//   getSelectedTaskId,
-//   selectAllPomos,
-//   (id, allPomos: Pomo[]) => {
-//     if (id && selectAllPomos) {
-//       return allPomos.filter((pomo: Pomo) => pomo.task_id === id);
-//     } else {
-//       return allPomos;
-//     }
-//   }
-// );
+export const getPomosTask = createSelector(
+  getSelectedTaskId,
+  getAllPomos,
+  (id, allPomos: Pomo[]) => {
+    if (id && getPomosTask) {
+      return allPomos.filter((pomo) => pomo.task_id.toString() === id);
+    } else {
+      return allPomos;
+    }
+  }
+);
 
 export const isSelectedTaskInCollection = createSelector(
   getCollectionTaskIds,

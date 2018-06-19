@@ -14,10 +14,8 @@ export enum TaskActionTypes {
   RemovePomo = '[Pomo] Remove Pomo',
   RemovePomoSuccess = '[Pomo] Remove Pomo Success',
   RemovePomoFail = '[Pomo] Remove Pomo Fail',
-  LoadPomos = '[Pomo] Load',
   LoadPomosSuccess = '[Pomo] Load Pomos Success',
-  LoadPomosFail = '[Pomo] Load Pomo Fail'
-
+  LoadPomosFail = '[Pomo] Load Pomos Fail',
 }
 
 /**
@@ -50,6 +48,7 @@ export class Load implements Action {
 
   constructor(public payload: Task) {}
 }
+
 
 export class Select implements Action {
   readonly type = TaskActionTypes.Select;
@@ -97,19 +96,11 @@ export class RemovePomoFail implements Action {
   constructor(public payload: Pomo) {}
 }
 
-/**
- * Load Pomos Actions
- */
-export class LoadPomos implements Action {
-  readonly type = TaskActionTypes.LoadPomos;
-}
-
 export class LoadPomosSuccess implements Action {
   readonly type = TaskActionTypes.LoadPomosSuccess;
 
   constructor(public payload: Pomo[]) {}
 }
-
 export class LoadPomosFail implements Action {
   readonly type = TaskActionTypes.LoadPomosFail;
 
@@ -132,6 +123,4 @@ export type TaskActions =
   | RemovePomo
   | RemovePomoSuccess
   | RemovePomoFail
-  | LoadPomos
-  | LoadPomosSuccess
   | LoadPomosFail;

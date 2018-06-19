@@ -1,7 +1,8 @@
-import { createSelector } from '@ngrx/store';
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { Task } from '../models/task';
+
 import { TaskActions, TaskActionTypes } from '../actions/task';
+
 import {
   CollectionActions,
   CollectionActionTypes,

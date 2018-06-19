@@ -1,8 +1,6 @@
-import { createSelector } from '@ngrx/store';
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-// import { Task } from '../models/task';
 import { Pomo } from '../models/pomo';
-import { CollectionActions, CollectionActionTypes } from '../actions/collection';
+import { TaskActions, TaskActionTypes } from '../actions/task';
 import {  PomoActions, PomoActionTypes } from '../actions/pomo';
 
 export interface State extends EntityState<Pomo> {
@@ -20,11 +18,10 @@ export const initialState: State = adapter.getInitialState({
 
 export function reducer(
   state = initialState,
-  action: PomoActions | CollectionActions
+  action: PomoActions | TaskActions
 ): State {
   switch (action.type) {
-    case PomoActionTypes.SearchComplete:
-    case CollectionActionTypes.LoadPomosSuccess: {
+    case PomoActionTypes.LoadSuccess: {
 
       return adapter.addMany(action.payload, {
         ...state,
@@ -52,5 +49,6 @@ export function reducer(
     }
   }
 }
+
 
 export const getSelectedId = (state: State) => state.selectedPomoId;

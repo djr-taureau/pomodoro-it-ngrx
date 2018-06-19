@@ -2,10 +2,9 @@ import { Action } from '@ngrx/store';
 import { Pomo } from '../models/pomo';
 
 export enum PomoActionTypes {
-  Search = '[Pomo] Search',
-  SearchComplete = '[Pomo] Search Complete',
-  SearchError = '[Pomo] Search Error',
   Load = '[Pomo] Load',
+  LoadSuccess = '[Pomo] Load Success',
+  LoadFail = '[Pomo] Load Fail',
   Select = '[Pomo] Select',
 }
 /**
@@ -15,30 +14,21 @@ export enum PomoActionTypes {
  *
  * See Discriminated Unions: https://www.typescriptlang.org/docs/handPomo/advanced-types.html#discriminated-unions
  */
-export class Search implements Action {
-  readonly type = PomoActionTypes.Search;
-
-  constructor(public payload: string) {}
-}
-
-export class SearchComplete implements Action {
-  readonly type = PomoActionTypes.SearchComplete;
-
-  constructor(public payload: Pomo[]) {}
-}
-
-export class SearchError implements Action {
-  readonly type = PomoActionTypes.SearchError;
-
-  constructor(public payload: string) {}
-}
 
 export class Load implements Action {
   readonly type = PomoActionTypes.Load;
-
   constructor(public payload: Pomo) {}
 }
 
+export class LoadSuccess implements Action {
+  readonly type = PomoActionTypes.LoadSuccess;
+  constructor(public payload: Pomo[]) {}
+}
+
+export class LoadFail implements Action {
+  readonly type = PomoActionTypes.LoadSuccess;
+  constructor(public payload: any) {}
+}
 export class Select implements Action {
   readonly type = PomoActionTypes.Select;
 
@@ -50,8 +40,7 @@ export class Select implements Action {
  * so that reducers can easily compose action types
  */
 export type PomoActions =
-  | Search
-  | SearchComplete
-  | SearchError
   | Load
+  | LoadSuccess
+  | LoadFail
   | Select;

@@ -12,9 +12,9 @@ export enum CollectionActionTypes {
   Load = '[Collection] Load',
   LoadSuccess = '[Collection] Load Success',
   LoadFail = '[Collection] Load Fail',
-  LoadPomos = '[Pomo] Load',
-  LoadPomosSuccess = '[Pomo] Load Pomos Success',
-  LoadPomosFail = '[Pomo] Load Pomo Fail'
+  LoadPomos = '[Pomos] Load',
+  LoadPomosSuccess = '[Pomos] Load Success',
+  LoadPomosFail = '[Pomos] Load Fail',
 }
 
 /**
@@ -66,6 +66,7 @@ export class Load implements Action {
   readonly type = CollectionActionTypes.Load;
 }
 
+
 export class LoadSuccess implements Action {
   readonly type = CollectionActionTypes.LoadSuccess;
 
@@ -89,11 +90,10 @@ export class LoadPomosSuccess implements Action {
 }
 
 export class LoadPomosFail implements Action {
-  readonly type = CollectionActionTypes.LoadPomosFail;
+  readonly type = CollectionActionTypes.LoadFail;
 
   constructor(public payload: any) {}
 }
-
 
 export type CollectionActions =
   | AddTask

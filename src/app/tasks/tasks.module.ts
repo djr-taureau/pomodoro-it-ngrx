@@ -1,6 +1,6 @@
 // import { PomoTrackerComponent } from './pomo-tracker/pomo-tracker.component';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -12,6 +12,7 @@ import { TaskExistsGuard } from './guards/task-exists';
 import { FindTaskPageComponent } from './containers/find-task-page';
 import { ViewTaskPageComponent } from './containers/view-task-page';
 import { SelectedTaskPageComponent, PomoDialogComponent } from './containers/selected-task-page';
+import { TestTrackerComponent} from './components/test-tracker';
 import { CollectionPageComponent } from './containers/collection-page';
 import { MaterialModule } from '../material';
 import {MatDialogModule} from '@angular/material/dialog';
@@ -40,7 +41,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   ],
   declarations: [
     FindTaskPageComponent,
-    // PomoTrackerComponent,
+    TestTrackerComponent,
     ViewTaskPageComponent,
     SelectedTaskPageComponent,
     CollectionPageComponent,
@@ -51,6 +52,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     PomoDialogComponent,
     SelectedTaskPageComponent
   ],
-  providers: [TaskExistsGuard],
+  providers: [TaskExistsGuard, DatePipe],
 })
 export class TasksModule {}

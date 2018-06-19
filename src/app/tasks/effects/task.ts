@@ -3,12 +3,10 @@ import { Effect, Actions, ofType } from '@ngrx/effects';
 import { Database } from '@ngrx/db';
 import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import * as fromTasks from '../reducers';
 import { Scheduler } from 'rxjs/Scheduler';
 import { async } from 'rxjs/scheduler/async';
 import { empty } from 'rxjs/observable/empty';
 import { of } from 'rxjs/observable/of';
-// import { PomoQueryService } from '../../core/services/pomo-query-service';
 import { TodoistTasksService } from '../../core/services/todoist-tasks';
 import {
   TaskActionTypes,
@@ -17,8 +15,6 @@ import {
   SearchError,
   Search,
   Select,
-  LoadPomosSuccess,
-  LoadPomosFail,
   AddPomo,
   AddPomoSuccess,
   AddPomoFail,

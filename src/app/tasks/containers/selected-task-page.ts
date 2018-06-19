@@ -1,5 +1,4 @@
 import { ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
-import { AddPomo } from './../actions/task';
 import { PomoTimerService } from './../../core/services/pomo-timer';
 import { PomoQueryService } from './../../core/services/pomo-query-service';
 import { Component, ViewEncapsulation,
@@ -9,7 +8,9 @@ import { Store, select } from '@ngrx/store';
 import { AsyncPipe, formatDate } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
 import * as fromTasks from '../reducers';
+import * as fromPomos from '../reducers';
 import * as collection from '../actions/collection';
+import * as pomos from '../actions/pomo';
 import * as taskPomo from '../actions/task';
 import { Task } from '../models/task';
 import { Pomo } from '../models/pomo';
@@ -19,7 +20,7 @@ import { interval } from 'rxjs/observable/interval';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { merge } from 'rxjs/observable/merge';
 import { empty } from 'rxjs/observable/empty';
-import { switchMap, concatMap, scan, takeWhile, catchError,
+import { switchMap, flatMap, concatMap, scan, takeWhile, catchError,
   startWith, mapTo, map, filter, last } from 'rxjs/operators';
 import { takeUntil } from 'rxjs/operators/takeUntil';
 import { Subscription } from 'rxjs/Subscription';
@@ -48,7 +49,7 @@ import { UUID } from 'angular2-uuid';
       (pauseClicked)="resumeClicked($event)"
       (reset)="resumeClicked($event)">
     </app-task-detail>
-    <app-pomo-tracker></app-pomo-tracker>
+    <app-test-tracker [dataSource]="this.pomos$ | async"></app-test-tracker>
     </div>
   `,
 //
@@ -66,7 +67,7 @@ export class SelectedTaskPageComponent implements OnInit, AfterViewInit {
   dialogRef;
   pomos: Pomo[];
   pomo;
-  snapshot;
+  taskId;
 
   constructor(private dialog: MatDialog,
               public pomoTimerService: PomoTimerService,
@@ -75,32 +76,17 @@ export class SelectedTaskPageComponent implements OnInit, AfterViewInit {
               public pomoQuery: PomoQueryService,
               private store: Store<fromTasks.State>) {
     this.task$ = store.pipe(select(fromTasks.getSelectedTask));
-    this.snapshot = route.snapshot;
-    // this.pomos$ = this.pomoQuery.getTaskPomos();
-    // this.pomos$.subscribe(((pomos) => console.log('constructor', pomos)));
+
+    this.taskId = route.snapshot.params.id;
     this.isSelectedTaskInCollection$ = store.pipe(
       select(fromTasks.isSelectedTaskInCollection)
     );
     this.pomoTimerService.timerSource$ = this.timerSource;
-    // this.pomos$.pipe(concatMap(pomos => this.pomos = pomos));
-    // this.pomos$.subscribe(pomos => console.log('these are the pomos', pomos));
-    // this.pomos$.pipe(concatMap(pomos => this.pomos)).subscribe(pomos => console.log(pomos));
-    // this.pomos = this.pomos$.pipe(
-    //   map(pomos => [this.pomos]),
-    //   startWith([]),
-    //   scan((acc, value) => acc.concat(value)));
-    //   console.log('this should be an array', this.pomos$);
-
-      // this.pomos = this.pomos$.pipe(
-      //   scan((acc: Pomo[], value) => {
-      //     acc.push(...value);
-      //     return acc;
-      //   })
-      // );
-      // console.log('pomos to array' , this.pomos);
   }
 
   ngOnInit(): void {
+   this.pomos$ = this.store.pipe(select(fromPomos.getPomosTask));
+   this.pomos$.subscribe(val => console.log('where are they', val));
    this.pomoTimerService.pomoCount$ = 1;
    this.pomoTimerService.pomosCompleted$ = 0;
    this.pomoTimerService.pomosCycleCompleted$ = 0;
@@ -117,36 +103,14 @@ export class SelectedTaskPageComponent implements OnInit, AfterViewInit {
         }
       }
     });
-
-    // this.pomos$ = this.pomoQuery.getTaskPomos();
-
-    // this.pomos$.subscribe(pomos => console.log('onInit', pomos));
-
-    // this.pomos$.pipe(map(pomos => {
-    //   console.log('these are the pomos from NgOnInit' , pomos),
-    //   this.pomos = pomos;
-    // }));
-
-    // this.pomos$.pipe(concatMap(pomos => this.pomos));
-    // this.pomos$.pipe(map(pomos => this.pomos = pomos));
-    // // this.pomos$.pipe(concatMap(pomos => this.pomos = pomos));
-    // this.pomos$.subscribe(pomos => console.log('these are the pomos', pomos));
   }
 
   ngAfterViewInit() {
   //
   }
 
-  // openSnackBar(action: string) {
-  //   this.snackBar.openFromComponent(TaskSnackbarMessageComponent, {
-  //     duration: 500,
-  //     data: action,
-  //   });
-  // }
-
   addToCollection(task: Task) {
     this.store.dispatch(new collection.AddTask(task));
-    // this.openSnackBar('added');
   }
 
   addPomoToTask(pomo: Pomo) {
@@ -155,7 +119,6 @@ export class SelectedTaskPageComponent implements OnInit, AfterViewInit {
 
   removeFromCollection(task: Task) {
     this.store.dispatch(new collection.RemoveTask(task));
-    // this.openSnackBar('removed');
   }
 
   resumeClicked(event) {
@@ -204,7 +167,6 @@ export class SelectedTaskPageComponent implements OnInit, AfterViewInit {
     this.dialogRef.afterClosed().subscribe(data => {
       this.dialogResult = data;
       this.pomo = {
-        id: this.generateUUID(),
         task_id: data.id,
         notes: data.notes,
         date: data.date

@@ -7,12 +7,14 @@ export interface State {
   loaded: boolean;
   loading: boolean;
   ids: string[];
+  pomoIds: string[];
 }
 
 const initialState: State = {
   loaded: false,
   loading: false,
   ids: [],
+  pomoIds: []
 };
 
 export function reducer(
@@ -34,9 +36,28 @@ export function reducer(
       return {
         loaded: true,
         loading: false,
-        ids: action.payload.map(task => task.id)
+        ids: action.payload.map(task => task.id),
+        pomoIds: []
       };
     }
+
+    case CollectionActionTypes.LoadPomosSuccess: {
+      return {
+        loaded: true,
+        loading: false,
+        pomoIds: action.payload.map(pomo => pomo.id),
+        ids: []
+      };
+    }
+
+    // case CollectionActionTypes.LoadPomosSuccess: {
+    //   return {
+    //     loaded: true,
+    //     loading: false,
+    //     pomoIds: action.payload.map(pomo => pomo.id),
+    //     ids: []
+    //   };
+    // }
 
     case CollectionActionTypes.AddTaskSuccess:
     case CollectionActionTypes.RemoveTaskFail: {
@@ -70,4 +91,5 @@ export const getLoaded = (state: State) => state.loaded;
 export const getLoading = (state: State) => state.loading;
 
 export const getIds = (state: State) => state.ids;
-// export const getPomoIds = (state: State) => state.pomoIds;
+
+export const getPomoIds = (state: State) => state.pomoIds;

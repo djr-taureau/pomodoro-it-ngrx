@@ -27,21 +27,11 @@ export class PomoQueryService {
        map((p: Pomo) => [p])
      );
     }
-
-    getTaskPomos() {
-      return this.db.query('pomos');
-     }
-
-    //  getTaskPomosNew(): Observable<Pomo[]> {
-    //   return this.db.query('pomos').pipe(flatMap(val => val));
-    //  }
-
-     getTaskPomosNew(): Observable<Pomo[]> {
+     getTaskPomos(id: string): Observable<Pomo[]> {
       return this.db.query('pomos').pipe(
+          filter(p => id === p.task_id.toString()),
           toArray(),
           map((pomos: Pomo[]) => pomos));
      }
-
-     // filter((p: Pomo) => id === p.task_id.toString());
 
 }
