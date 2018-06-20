@@ -5,21 +5,16 @@ import { map, concatMap, flatMap, reduce, scan, subscribeOn } from 'rxjs/operato
 import { BehaviorSubject, Observable, of as observableOf, merge } from 'rxjs';
 import { Pomo } from '../../tasks/models/pomo';
 export class PomoTrackerDataSource extends DataSource<Pomo> {
-  pomos$: Observable<Pomo[]>;
-  public pomosStream: BehaviorSubject<Pomo[]> = new BehaviorSubject<Pomo[]>([]);
-  filter;
 
-  set data(v: Pomo[]) { this.pomosStream.next(v); }
-  get data(): Pomo[] { return this.pomosStream.value; }
+  // public pomosStream: BehaviorSubject<Pomo[]> = new BehaviorSubject<Pomo[]>([]);
+  // filter;
+  data;
+  // set data(v: Pomo[]) { this.pomosStream.next(v); }
+  // get data(): Pomo[] { return this.pomosStream.value; }
 
-  constructor(public paginator: MatPaginator, public sort: MatSort, pomos$: Observable<Pomo[]>) {
+  constructor(public paginator: MatPaginator, public sort: MatSort, public dataBase: any) {
     super();
-
-    this.pomos$ = this.pomosStream;
-    // this.pomos$.pipe(scan((acc, value) => acc + value)
-    //  this.pomos$.subscribe(pomos => {
-    //    this.pomosStream.next(pomos);
-    //  });
+    this.data = this.dataBase;
   }
   /**
    * Connect this data source to the table. The table will only update when
@@ -32,21 +27,21 @@ export class PomoTrackerDataSource extends DataSource<Pomo> {
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
 
-    // const dataChanges = [
-    //    observableOf(this.data),
-    //       this.paginator.page,
-    //       this.sort.sortChange
-    //    ];
+    const displayDataChanges = [
+      this.data,
+      this.paginator.page,
+      this.sort.sortChange
+    ];
 
-    // return merge(...dataChanges).pipe(map(() => {
-    //   return this.getPagedData(this.getSortedData([...this.data]));
-    //  }));
-    return this.pomosStream.asObservable();
+    return merge(...displayDataChanges).pipe(map(() => {
+      return this.getPagedData(this.getSortedData([...this.data]));
+     }));
+    // return this.pomosStream.asObservable();
 
   }
 
-  disconnect(): void {
-    this.pomosStream.complete();
+  disconnect() {
+    // this.pomosStream.complete();
   }
 
   private getPagedData(data: Pomo[]) {
