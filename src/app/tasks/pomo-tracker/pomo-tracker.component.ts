@@ -35,8 +35,8 @@ export class PomoTrackerComponent implements OnInit, AfterViewInit {
       console.log('wthe fuck', arr);
     });
     this.dataSource = new PomoTrackerDataSource(this.paginator, this.sort, this.pomosDatabase);
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
+    // this.dataSource.sort = this.sort;
+    // this.dataSource.paginator = this.paginator;
   }
 
   ngAfterViewInit() {

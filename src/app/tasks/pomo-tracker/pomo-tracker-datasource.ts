@@ -44,12 +44,12 @@ export class PomoTrackerDataSource extends DataSource<Pomo> {
     // this.pomosStream.complete();
   }
 
-  private getPagedData(data: Pomo[]) {
+  private getPagedData(data: Pomo[]): Pomo[] {
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
     return data.splice(startIndex, this.paginator.pageSize);
   }
 
-  private getSortedData(data: Pomo[]) {
+  private getSortedData(data: Pomo[]): Pomo[] {
     if (!this.sort.active || this.sort.direction === '') {
       return data;
     }

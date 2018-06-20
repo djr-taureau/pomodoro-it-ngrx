@@ -1,8 +1,6 @@
 <div class="mat-elevation-z8 container">
-  <mat-form-field>
-    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-  </mat-form-field>
-  <table #table mat-table [dataSource]="dataSource" matSort matSortActive="date" matSortDiableClear matSortDirection="asc">
+
+  <table #table mat-table [dataSource]="dataSource" matSort matSortActive="date" matSortDirection="asc">
     <!-- Date Column -->
     <ng-container matColumnDef="date">
       <th header mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
