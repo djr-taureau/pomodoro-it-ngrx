@@ -8,7 +8,7 @@ import { Pomo } from '../models/pomo';
 import {MatTableDataSource} from '@angular/material';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { map, concatMap  } from 'rxjs/operators';
+import { map, concatMap, concatMapTo } from 'rxjs/operators';
 import * as fromTasks from '../reducers';
 import * as taskPomo from '../actions/collection';
 
@@ -64,7 +64,7 @@ import * as taskPomo from '../actions/collection';
   ],
 })
 export class TestTrackerComponent implements OnInit {
-  @Input() dataSource;
+  @Input() dataSource: Observable<Pomo[]>;
   displayedColumns: ['date', 'notes'];
   index: number;
   id: string;
@@ -83,7 +83,7 @@ export class TestTrackerComponent implements OnInit {
   }
 
   ngOnInit() {
-   //
+   this.dataSource.map(pomo =>  pomo);
   }
 
 

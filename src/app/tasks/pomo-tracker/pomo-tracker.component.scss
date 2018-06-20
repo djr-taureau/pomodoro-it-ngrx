@@ -1,0 +1,23 @@
+    :host {
+      display: flex;
+      justify-content: center;
+      margin: 75px 0;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      min-width: 500px;
+    }
+
+    .mat-form-field {
+      font-size: 14px;
+      width: 80%;
+      padding: 20px, 0, 0, 20px;
+    }
+
+    .header {
+      min-height: 64px;
+      padding: 8px 24px 0;
+    }
+
