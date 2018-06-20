@@ -6,15 +6,14 @@ import { BehaviorSubject, Observable, of as observableOf, merge } from 'rxjs';
 import { Pomo } from '../../tasks/models/pomo';
 export class PomoTrackerDataSource extends DataSource<Pomo> {
 
-  // public pomosStream: BehaviorSubject<Pomo[]> = new BehaviorSubject<Pomo[]>([]);
-  // filter;
-  data;
-  // set data(v: Pomo[]) { this.pomosStream.next(v); }
-  // get data(): Pomo[] { return this.pomosStream.value; }
+  dataStream: BehaviorSubject<Pomo[]> = new BehaviorSubject<Pomo[]>([]);
+  data() {
+    return this.dataStream.value;
+  }
 
-  constructor(public paginator: MatPaginator, public sort: MatSort, public dataBase: any) {
+  constructor(data: any[] sort: MatSort) {
     super();
-    this.data = this.dataBase;
+    this.dataStream.next(data);
   }
   /**
    * Connect this data source to the table. The table will only update when
@@ -24,49 +23,11 @@ export class PomoTrackerDataSource extends DataSource<Pomo> {
   /*
    */
   connect(): Observable<Pomo[]> {
-    // Combine everything that affects the rendered data into one update
-    // stream for the data-table to consume.
-
-    const displayDataChanges = [
-      this.data,
-      this.paginator.page,
-      this.sort.sortChange
-    ];
-
-    return merge(...displayDataChanges).pipe(map(() => {
-      return this.getPagedData(this.getSortedData([...this.data]));
-     }));
-    // return this.pomosStream.asObservable();
-
+    return this.dataStream.asObservable();
   }
 
-  disconnect() {
-    // this.pomosStream.complete();
-  }
+  disconnect() {}
 
-  private getPagedData(data: Pomo[]): Pomo[] {
-    const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
-    return data.splice(startIndex, this.paginator.pageSize);
-  }
-
-  private getSortedData(data: Pomo[]): Pomo[] {
-    if (!this.sort.active || this.sort.direction === '') {
-      return data;
-    }
-
-    return data.sort((a, b) => {
-      const isAsc = this.sort.direction === 'asc';
-      switch (this.sort.active) {
-        case 'notes': return compare(a.notes, b.notes, isAsc);
-        case 'date': return compare(+a.date, +b.date, isAsc);
-        case 'task_id': return compare(+a.task_id, +b.task_id, isAsc);
-        default: return 0;
-      }
-    });
-  }
 }
 
-/** Simple sort comparator for example ID/Name columns (for client-side sorting). */
-function compare(a, b, isAsc) {
-  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
-}
+

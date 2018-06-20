@@ -14,40 +14,34 @@ import * as collection from '../actions/collection';
   styleUrls: ['./pomo-tracker.component.scss']
 })
 export class PomoTrackerComponent implements OnInit, AfterViewInit {
-  @Input() pomos$: Observable<Pomo[]>;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  displayedColumns = ['date', 'notes'];
+  dataSource: PomoTrackerDataSource;
+
   @ViewChild(MatSort) sort: MatSort;
-  dataSource;
-  pomosDatabase: Pomo[] = [];
-  pomosData: Array<Pomo> = [];
 
   constructor(public store: Store<fromTasks.State>) {
+
   }
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['date', 'notes', 'task_id'];
+
 
   ngOnInit() {
 
-    // this.loadData();
+    this.dataSource = new PomoTrackerDataSource();
     this.store.dispatch(new collection.LoadPomos());
     this.store.select(fromPomos.getPomosTask).subscribe(arr => {
-      this.pomosDatabase = arr;
-      console.log('wthe fuck', arr);
+      this.dataSource = new PomoTrackerDataSource(arr);
     });
-    this.dataSource = new PomoTrackerDataSource(this.paginator, this.sort, this.pomosDatabase);
+    this.refresh();
     // this.dataSource.sort = this.sort;
-    // this.dataSource.paginator = this.paginator;
   }
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
   }
 
-  applyFilter(filterValue: string) {
-    filterValue = filterValue.trim();
-    filterValue = filterValue.toLowerCase();
-    this.dataSource.filter = filterValue;
+  refresh() {
+    this.changeDetectorRefs.detectChanges();
   }
 
 }
