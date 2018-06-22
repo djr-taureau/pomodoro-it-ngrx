@@ -11,7 +11,7 @@ export class PomoTrackerDataSource extends DataSource<Pomo> {
     return this.dataStream.value;
   }
 
-  constructor(data: any[] sort: MatSort) {
+  constructor(data: any[], sort: MatSort) {
     super();
     this.dataStream.next(data);
   }

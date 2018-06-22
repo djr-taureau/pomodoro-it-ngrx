@@ -27,21 +27,18 @@ export class PomoTrackerComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
 
-    this.dataSource = new PomoTrackerDataSource();
+    // this.dataSource = new PomoTrackerDataSource();
     this.store.dispatch(new collection.LoadPomos());
     this.store.select(fromPomos.getPomosTask).subscribe(arr => {
-      this.dataSource = new PomoTrackerDataSource(arr);
+      this.dataSource = new PomoTrackerDataSource(arr, this.sort);
     });
-    this.refresh();
-    // this.dataSource.sort = this.sort;
+
+    this.dataSource.sort = this.sort;
   }
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
   }
 
-  refresh() {
-    this.changeDetectorRefs.detectChanges();
-  }
 
 }
