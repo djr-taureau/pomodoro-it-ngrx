@@ -37,6 +37,8 @@ export class PomoTrackerComponent implements OnInit, AfterViewInit {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     console.log('dataSource data', this.dataSource.data);
+    this.sort.active = 'date';
+    this.sort.direction = 'desc';
     // this.dataSource.connect().subscribe(d => this.renderedData = d);
   }
 
