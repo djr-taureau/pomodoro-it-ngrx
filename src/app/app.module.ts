@@ -11,6 +11,9 @@ import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { DBModule } from '@ngrx/db';
+import { TaskEffects } from './../app/tasks/effects/task';
+import { PomoEffects } from './../app/tasks/effects/pomo';
+import { CollectionEffects } from './../app/tasks/effects/collection';
 import { StoreRouterConnectingModule, RouterStateSerializer, routerReducer } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { FormsModule } from '@angular/forms';
@@ -24,7 +27,9 @@ import { AppComponent } from './core/containers/app';
 import { environment } from '../environments/environment';
 import { NgxOAuthModule } from 'ngx-oauth-client';
 import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
-import { TestTableComponent } from './test-table/test-table.component';
+import { PomoTableTestComponent } from './pomo-table-test/pomo-table-test.component';
+
+
 
 @NgModule({
   imports: [
@@ -45,7 +50,7 @@ import { TestTableComponent } from './test-table/test-table.component';
     StoreRouterConnectingModule.forRoot({
       stateKey: 'router',
     }),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([TaskEffects, PomoEffects, CollectionEffects]),
     DBModule.provideDB(schema),
     CoreModule.forRoot(),
     AuthModule.forRoot(),
@@ -59,6 +64,6 @@ import { TestTableComponent } from './test-table/test-table.component';
     // { provide: HTTP_INTERCEPTORS , useClass: AuthTokenService, multi: true},
   ],
   bootstrap: [AppComponent],
-  declarations: [TestTableComponent],
+  declarations: [PomoTableTestComponent],
 })
 export class AppModule {}

@@ -5,7 +5,7 @@ import { map, concatMap, flatMap, reduce, scan, subscribeOn } from 'rxjs/operato
 import { BehaviorSubject, Observable, of as observableOf, merge } from 'rxjs';
 import { Pomo } from '../../tasks/models/pomo';
 export class PomoTrackerDataSource extends DataSource<Pomo> {
-  sort;
+  sort: MatSort;
   dataStream: BehaviorSubject<Pomo[]> = new BehaviorSubject<Pomo[]>([]);
   data() {
     return this.dataStream.value;
