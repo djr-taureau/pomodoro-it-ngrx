@@ -16,6 +16,8 @@ import {
   MatPaginatorModule,
   MatProgressSpinnerModule,
   MatTableModule,
+  MatSortModule,
+  MatTabsModule,
   MatCheckboxModule,
 } from '@angular/material';
 
@@ -34,6 +36,8 @@ import {
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatTableModule,
+    MatSortModule,
+    MatTabsModule,
     MatCheckboxModule,
     MatChipsModule,
     MatDatepickerModule
@@ -52,6 +56,8 @@ import {
     MatProgressSpinnerModule,
     MatTableModule,
     MatPaginatorModule,
+    MatSortModule,
+    MatTabsModule,
     MatCheckboxModule,
     MatChipsModule,
     MatDatepickerModule

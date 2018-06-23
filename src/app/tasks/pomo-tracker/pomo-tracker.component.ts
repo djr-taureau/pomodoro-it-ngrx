@@ -14,16 +14,17 @@ import * as collection from '../actions/collection';
   styleUrls: ['./pomo-tracker.component.scss']
 })
 export class PomoTrackerComponent implements OnInit, AfterViewInit {
-  displayedColumns = ['date', 'notes'];
+
   dataSource: PomoTrackerDataSource;
 
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(public store: Store<fromTasks.State>) {
 
   }
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-
+  displayedColumns = ['date', 'notes'];
 
   ngOnInit() {
 

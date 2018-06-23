@@ -50,7 +50,6 @@ import { UUID } from 'angular2-uuid';
       (reset)="resumeClicked($event)">
     </app-task-detail>
     <app-pomo-tracker></app-pomo-tracker>
-    <app-pomo-table></app-pomo-table>
     </div>
   `,
 //

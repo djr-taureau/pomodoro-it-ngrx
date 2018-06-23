@@ -5,6 +5,9 @@ import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { ComponentsModule } from './components';
+import { BrowserModule } from '@angular/platform-browser';
+import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TaskEffects } from './effects/task';
 import { PomoEffects } from './effects/pomo';
 import { CollectionEffects } from './effects/collection';
@@ -12,7 +15,7 @@ import { TaskExistsGuard } from './guards/task-exists';
 import { FindTaskPageComponent } from './containers/find-task-page';
 import { ViewTaskPageComponent } from './containers/view-task-page';
 import { SelectedTaskPageComponent, PomoDialogComponent } from './containers/selected-task-page';
-import { PomoTableComponent } from '../tasks/pomo-table/pomo-table.component';
+import { PomoTableSortComponent } from '../tasks/pomo-table-sort/pomo-table-sort.component';
 import { PomoTrackerComponent} from '../tasks/pomo-tracker/pomo-tracker.component';
 import { TestTrackerComponent} from './components/test-tracker';
 import { CollectionPageComponent } from './containers/collection-page';
@@ -44,7 +47,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [
     FindTaskPageComponent,
     PomoTrackerComponent,
-    PomoTableComponent,
+    PomoTableSortComponent,
     TestTrackerComponent,
     ViewTaskPageComponent,
     SelectedTaskPageComponent,
