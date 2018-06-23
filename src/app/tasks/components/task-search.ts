@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-task-search',
   template: `
     <mat-card>
+    <mat-card-title>Find a Task</mat-card-title>
       <mat-card-content>
         <form class="form" [formGroup]>
         <mat-form-field>
@@ -30,34 +31,12 @@ import { FormsModule } from '@angular/forms';
       padding: 5px 0;
     }
 
-    .basic-container {
-      padding: 30px;
-    }
-
-    .basic-container {
-      padding: 30px;
-    }
-
-    .form {
-      min-width: 150px;
-      max-width: 500px;
-      width: 100%;
-    }
-
-    .mat-form-field {
-      width: 100%;
-      font-weight: 400;
-      font-size: 20px;
-      line-height: 20px;
-      height: 20px;
-    }
-
     .mat-spinner {
       position: relative;
       top: 10px;
       left: 10px;
       opacity: 0.0;
-      padding-left: 60px; // Make room for the spinner
+      padding-left: 60px;
     }
 
     .mat-spinner.show {
