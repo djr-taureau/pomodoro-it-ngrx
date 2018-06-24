@@ -1,6 +1,8 @@
 import { ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
 import { PomoTimerService } from './../../core/services/pomo-timer';
 import { PomoQueryService } from './../../core/services/pomo-query-service';
+import { PomoTrackerDataSource } from './../pomo-tracker/pomo-tracker-datasource';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { Component, ViewEncapsulation,
   OnInit, OnDestroy, AfterViewInit, ChangeDetectionStrategy, Output, Input,
   EventEmitter, Inject, Injectable } from '@angular/core';
@@ -66,8 +68,11 @@ export class SelectedTaskPageComponent implements OnInit, AfterViewInit {
   dialogResult: any;
   dialogRef;
   pomos: Pomo[];
+  pomosDataSource: PomoTrackerDataSource;
   pomo;
   taskId;
+  paginator;
+  sort;
 
   constructor(private dialog: MatDialog,
               public pomoTimerService: PomoTimerService,
@@ -115,6 +120,9 @@ export class SelectedTaskPageComponent implements OnInit, AfterViewInit {
 
   addPomoToTask(pomo: Pomo) {
     this.store.dispatch(new taskPomo.AddPomo(pomo));
+    this.pomosDataSource = new PomoTrackerDataSource(this.pomos, this.paginator, this.sort);
+    // this.pomos.push(pomo);
+    this.pomosDataSource.data.push(this.pomo);
   }
 
   removeFromCollection(task: Task) {
@@ -167,11 +175,13 @@ export class SelectedTaskPageComponent implements OnInit, AfterViewInit {
     this.dialogRef.afterClosed().subscribe(data => {
       this.dialogResult = data;
       this.pomo = {
+        id: this.generateUUID(),
         task_id: data.id,
         notes: data.notes,
         date: data.date
       };
       this.addPomoToTask(this.pomo);
+      this.store.dispatch(new collection.LoadPomos());
       this.timerSource.next(this.pomoTimerService.countdownSeconds$);
     });
   }

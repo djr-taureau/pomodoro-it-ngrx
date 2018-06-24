@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, AfterViewInit, EventEmitter } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { PomoTrackerDataSource } from './pomo-tracker-datasource';
 import { Pomo } from '../models/pomo';
@@ -21,22 +21,17 @@ export class PomoTrackerComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   renderedData: Pomo[];
 
-  constructor(public store: Store<fromTasks.State>) {
-
-  }
+  constructor(public store: Store<fromTasks.State>) { }
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['date', 'notes'];
 
   ngOnInit() {
-
-    // this.dataSource = new PomoTrackerDataSource();
     this.store.dispatch(new collection.LoadPomos());
     this.store.select(fromPomos.getPomosTask).subscribe(arr => {
       this.dataSource = new PomoTrackerDataSource(arr, this.sort, this.paginator);
     });
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
-    console.log('dataSource data', this.dataSource.data);
     this.sort.active = 'date';
     this.sort.direction = 'desc';
     // this.dataSource.connect().subscribe(d => this.renderedData = d);
@@ -44,6 +39,9 @@ export class PomoTrackerComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     // this.dataSource.sort = this.sort;
+    this.store.select(fromPomos.getPomosTask).subscribe(arr => {
+      this.dataSource.data = arr;
+    });
   }
 
 
