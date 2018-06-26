@@ -12,7 +12,6 @@ import { TaskExistsGuard } from './guards/task-exists';
 import { FindTaskPageComponent } from './containers/find-task-page';
 import { ViewTaskPageComponent } from './containers/view-task-page';
 import { SelectedTaskPageComponent, PomoDialogComponent } from './containers/selected-task-page';
-import { PomoTrackerComponent} from '../tasks/pomo-tracker/pomo-tracker.component';
 import { CollectionPageComponent } from './containers/collection-page';
 import { MaterialModule } from '../material';
 import {MatDialogModule} from '@angular/material/dialog';
@@ -41,7 +40,6 @@ import { ReactiveFormsModule } from '@angular/forms';
   ],
   declarations: [
     FindTaskPageComponent,
-    PomoTrackerComponent,
     ViewTaskPageComponent,
     SelectedTaskPageComponent,
     CollectionPageComponent,

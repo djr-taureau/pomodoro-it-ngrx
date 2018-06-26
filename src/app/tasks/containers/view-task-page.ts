@@ -21,7 +21,7 @@ export class ViewTaskPageComponent implements OnDestroy {
 
   constructor(store: Store<fromTasks.State>, route: ActivatedRoute) {
     this.actionsSubscription = route.params
-      .pipe(map(params => new task.Select(params.id)))
+      .pipe(map(params => new task.Select(params.id))) // TODO : add Pomos by ID here LOADPOMOS
       .subscribe(store);
   }
 

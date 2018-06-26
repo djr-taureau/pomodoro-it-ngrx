@@ -95,12 +95,12 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 export class TaskDetailComponent implements AfterViewInit {
 
   @Input() task: Task;
-  @Input() pomos: Pomo[];
   @Input() inCollection: boolean;
   @Input() pomoCount: number;
   @Input() pomoTitle: number;
   @Input() pomosCompleted: number;
   @Output() add = new EventEmitter<Task>();
+  @Output() addPomo = new EventEmitter<Pomo>();
   @Output() remove = new EventEmitter<Task>();
   @Output() resumeClicked = new EventEmitter();
 
@@ -122,8 +122,6 @@ export class TaskDetailComponent implements AfterViewInit {
   }
 
   get id() {
-    console.log('wtf', this.task.id);
-    console.log(this.inCollection);
     return this.task.id;
   }
 
@@ -148,3 +146,4 @@ export class TaskDetailComponent implements AfterViewInit {
   }
 
 }
+

@@ -77,3 +77,4 @@ export class CollectionEffects {
 
   constructor(private actions$: Actions, private db: Database) {}
 }
+

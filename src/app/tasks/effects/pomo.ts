@@ -23,6 +23,7 @@ import {
   LoadFail
 } from '../actions/pomo';
 import { Pomo } from '../models/pomo';
+import { getSelectedTaskId } from '../reducers/index';
 import {
   debounceTime,
   map,

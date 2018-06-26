@@ -2,6 +2,8 @@ import {
   createSelector,
   createFeatureSelector,
   ActionReducerMap,
+  MemoizedProjection,
+  MemoizedSelector
 } from '@ngrx/store';
 import * as fromSearch from './search';
 import * as fromTasks from './tasks';
@@ -127,10 +129,10 @@ export const getCollectionState = createSelector(
   (state: TasksState) => state.collection
 );
 
-// export const getPomosState = createSelector(
-//   getTasksState,
-//   (state: TasksState) => state.pomos
-// );
+export const getPomosState = createSelector(
+  getTasksState,
+  (state: TasksState) => state.pomos
+);
 
 export const getCollectionLoaded = createSelector(
   getCollectionState,
@@ -160,32 +162,49 @@ export const getTaskCollection = createSelector(
   }
 );
 
-export const getTaskPomos = createSelector(
+export const getPomoCollection = createSelector(
   getPomoEntities,
-  getCollectionTaskIds,
+  getCollectionPomoIds,
   (entities, ids) => {
     return ids.map(id => entities[id]);
   }
 );
 
-// export interface State {
-//   selectedTask: Task;
-//   allPomos: Pomo[];
-// }
 
-// export const selectAllPomos = (state: State) => state.allPomos;
+// export const getTaskPomos = createSelector(
+//   getPomoEntities,
+//   getCollectionTaskIds,
+//   (entities, ids) => {
+//     return ids.map(id => entities[id]);
+//   }
+// );
 
-export const getPomosTask = createSelector(
+export const selectTaskPomos = createSelector(
+  getAllPomos,
+  pomos => (task_id: string) => pomos[task_id]
+);
+
+
+
+export const getSelectedTaskPomos = createSelector(
   getSelectedTaskId,
   getAllPomos,
   (id, allPomos: Pomo[]) => {
-    if (id && getPomosTask) {
+    if (id && getSelectedTaskPomos) {
       return allPomos.filter((pomo) => pomo.task_id.toString() === id);
     } else {
       return allPomos;
     }
   }
 );
+
+export const getSelectedTaskPomosTest = createSelector(
+  getSelectedTaskId,
+  getPomoCollection,
+  (id, taskPomos: Pomo[]) => {
+    if (taskPomos) {
+      return taskPomos.filter(((pomo) => pomo.task_id.toString() === id));
+    }});
 
 export const isSelectedTaskInCollection = createSelector(
   getCollectionTaskIds,
