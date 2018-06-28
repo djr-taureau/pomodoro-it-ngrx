@@ -11,14 +11,11 @@ export class PomoTrackerDataSource extends DataSource<Pomo> {
   dataStream: BehaviorSubject<Pomo[]> = new BehaviorSubject<Pomo[]>([]);
   set data(v: Pomo[]) { this.dataStream.next(v); }
   get data(): Pomo[] { return this.dataStream.value; }
-  // data() {
-  //   return this.dataStream.value;
-  // }
+
 
   constructor(data: Pomo[], sort: MatSort, paginator: MatPaginator) {
     super();
     this.dataStream.next(data);
-    // this.data = this.dataStream.next(data);
   }
   /**
    * Connect this data source to the table. The table will only update when
@@ -41,7 +38,6 @@ export class PomoTrackerDataSource extends DataSource<Pomo> {
     return merge(...dataMutations).pipe(map(() => {
       return this.getPagedData(this.getSortedData([...this.data]));
     }));
-    // return this.dataStream.asObservable();
   }
 
   disconnect() {

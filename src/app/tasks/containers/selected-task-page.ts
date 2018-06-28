@@ -1,39 +1,26 @@
-import { ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { PomoTimerService } from './../../core/services/pomo-timer';
 import { PomoQueryService } from './../../core/services/pomo-query-service';
 import { PomoTrackerDataSource } from './../pomo-tracker/pomo-tracker-datasource';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { Component, ViewEncapsulation,
   OnInit, OnDestroy, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Output, Input,
   EventEmitter, Inject, Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { AsyncPipe, formatDate } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
 import * as fromTasks from '../reducers';
 import * as fromPomos from '../reducers';
 import * as collection from '../actions/collection';
-import * as pomos from '../actions/pomo';
 import * as taskPomo from '../actions/task';
 import { Task } from '../models/task';
 import { Pomo } from '../models/pomo';
-import { Subject } from 'rxjs/Subject';
-import { timer } from 'rxjs/observable/timer';
-import { interval } from 'rxjs/observable/interval';
-import { fromEvent } from 'rxjs/observable/fromEvent';
-import { merge } from 'rxjs/observable/merge';
-import { empty } from 'rxjs/observable/empty';
 import { switchMap, flatMap, concatMap, scan, takeWhile, catchError,
   startWith, mapTo, map, filter, last } from 'rxjs/operators';
-import { takeUntil } from 'rxjs/operators/takeUntil';
-import { Subscription } from 'rxjs/Subscription';
-import { TimerObservable } from 'rxjs/observable/TimerObservable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import {MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import * as moment from 'moment';
 import { UUID } from 'angular2-uuid';
-import { getSelectedTaskId } from '../reducers/index';
+
 
 @Component({
   selector: 'app-selected-task-page',
