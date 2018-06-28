@@ -1,4 +1,3 @@
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AuthTokenService } from './auth/services/auth-token.service';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { NgModule } from '@angular/core';

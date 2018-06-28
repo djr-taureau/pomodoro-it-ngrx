@@ -18,6 +18,13 @@ export enum TaskActionTypes {
   LoadPomosFail = '[Pomo] Load Pomos Fail',
 }
 
+/**
+ * Every action is comprised of at least a type and an optional
+ * payload. Expressing actions as classes enables powerful
+ * type checking in reducer functions.
+ *
+ * See Discriminated Unions: https://www.typescriptlang.org/docs/handTask/advanced-types.html#discriminated-unions
+ */
 export class Search implements Action {
   readonly type = TaskActionTypes.Search;
 
@@ -100,6 +107,10 @@ export class LoadPomosFail implements Action {
   constructor(public payload: any) {}
 }
 
+/**
+ * Export a type alias of all actions in this action group
+ * so that reducers can easily compose action types
+ */
 export type TaskActions =
   | Search
   | SearchComplete

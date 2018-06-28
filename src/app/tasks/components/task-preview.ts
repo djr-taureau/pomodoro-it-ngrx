@@ -10,6 +10,9 @@ import { Task } from '../models/task';
           <mat-card-title color="primary">{{ content }}</mat-card-title>
           <mat-card-subtitle color="secondary" *ngIf="projectId">{{ projectId }}</mat-card-subtitle>
         </mat-card-title-group>
+        <mat-card-content>
+          <p>Due Date Goes Here</p>
+        </mat-card-content>
         <mat-card-footer>
         </mat-card-footer>
       </mat-card>
