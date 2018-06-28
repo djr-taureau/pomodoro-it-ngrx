@@ -9,7 +9,9 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "demo": "ng s -o -p 4800"
+    "demo": "ng s -o -p 4800",
+    "now-build": "echo 'Build locally'",
+    "now-start": "serve ./dist --single"
   },
   "private": true,
   "dependencies": {
