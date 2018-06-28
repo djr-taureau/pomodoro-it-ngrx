@@ -46,6 +46,7 @@
     "node-sass": "^4.9.0",
     "rxjs": "^6.2.1",
     "rxjs-compat": "^6.2.0",
+    "serve": "^9.1.0",
     "todoist-api-ts": "^1.0.3",
     "tslib": "^1.9.1",
     "zone.js": "^0.8.26"
