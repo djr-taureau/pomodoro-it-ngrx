@@ -41,7 +41,7 @@ import { UUID } from 'angular2-uuid';
     </app-task-detail>
     <app-pomo-tracker
       [pomos]="this.pomos$ | async"
-      (addPomo)="addPomoToTask($event);">
+      (savePomo)="addPomoToTask($event);">
     </app-pomo-tracker>
     </div>
   `,

@@ -40,6 +40,11 @@ export class PomoTrackerDataSource extends DataSource<Pomo> {
     }));
   }
 
+  addPomo($event) {
+    this.dataStream.next([...this.data]);
+  //
+  }
+
   disconnect() {
     this.dataStream.complete();
   }

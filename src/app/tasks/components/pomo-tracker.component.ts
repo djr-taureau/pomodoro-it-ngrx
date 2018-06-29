@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild,
         Input, AfterViewInit, EventEmitter,
-        ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+        ChangeDetectionStrategy, ChangeDetectorRef, HostListener } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { PomoTimerService } from './../../core/services/pomo-timer';
 import { PomoTrackerDataSource } from './pomo-tracker-datasource';
@@ -105,6 +105,10 @@ export class PomoTrackerComponent implements OnInit, AfterViewInit {
     this.dataSource = new PomoTrackerDataSource(arr, this.sort, this.paginator);
     });
     // this.dataSource = new PomoTrackerDataSource(this.pomos, this.sort, this.paginator);
+  }
+
+  addPomo($event) {
+    this.dataSource.addPomo($event);
   }
 
   ngAfterViewInit() {
