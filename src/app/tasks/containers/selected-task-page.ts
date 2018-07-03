@@ -6,7 +6,7 @@ import { Component, ViewEncapsulation,
   OnInit, OnDestroy, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Output, Input,
   EventEmitter, Inject, Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable, BehaviorSubject } from 'rxjs';
 import * as fromTasks from '../reducers';
 import * as fromPomos from '../reducers';
 import * as collection from '../actions/collection';
@@ -15,7 +15,6 @@ import { Task } from '../models/task';
 import { Pomo } from '../models/pomo';
 import { switchMap, flatMap, concatMap, scan, takeWhile, catchError,
   startWith, mapTo, map, filter, last } from 'rxjs/operators';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import {MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material';
 import { FormGroup, FormBuilder } from '@angular/forms';
