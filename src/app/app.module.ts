@@ -46,6 +46,10 @@ import { TestTableComponent } from './test-table/test-table.component';
     StoreRouterConnectingModule.forRoot({
       stateKey: 'router',
     }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
+    }),
     EffectsModule.forRoot([]),
     DBModule.provideDB(schema),
     CoreModule.forRoot(),
