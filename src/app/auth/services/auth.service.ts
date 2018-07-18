@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs/observable/of';
-import { _throw } from 'rxjs/observable/throw';
+import { of } from 'rxjs';
 import { User, Authenticate } from '../models/user';
 import { Observable } from 'rxjs/Observable';
 import { OAuthService } from 'angular-oauth2-oidc';
