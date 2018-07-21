@@ -1,5 +1,5 @@
 {
-  "name": "ngrx5-example-app",
+  "name": "pomo-doist-ngrx",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
@@ -46,7 +46,7 @@
     "ngx-model": "^6.0.1",
     "ngx-oauth-client": "^0.3.0",
     "node-sass": "^4.9.0",
-    "rxjs": "^6.2.1",
+    "rxjs": "^6.0.0",
     "rxjs-compat": "^6.2.0",
     "serve": "^9.1.0",
     "todoist-api-ts": "^1.0.3",

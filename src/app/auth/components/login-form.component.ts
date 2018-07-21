@@ -11,13 +11,13 @@ import { Authenticate } from '../models/user';
         <form [formGroup]="form" (ngSubmit)="submit()">
           <p>
           <mat-form-field>
-              <input type="text" matInput placeholder="Username" formControlName="username">
+              <input type="text" matInput placeholder="Username" formControlName="username" value="test">
               </mat-form-field>
               </p>
 
           <p>
           <mat-form-field>
-              <input type="password" matInput placeholder="Password" formControlName="password">
+              <input type="password" matInput placeholder="Password" formControlName="password" value="test">
               </mat-form-field>
           </p>
 
@@ -88,7 +88,9 @@ export class LoginFormComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+
+  }
 
   submit() {
     if (this.form.valid) {
