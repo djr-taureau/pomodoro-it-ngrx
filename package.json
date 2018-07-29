@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.conf.json",
+    "start": "ng serve",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
@@ -50,6 +50,7 @@
     "node-sass": "^4.9.0",
     "rxjs": "^6.2.1",
     "rxjs-compat": "^6.2.0",
+    "serverless-google-cloudfunctions": "^1.2.0",
     "todoist-api-ts": "^1.0.3",
     "tslib": "^1.9.1",
     "zone.js": "^0.8.26"
