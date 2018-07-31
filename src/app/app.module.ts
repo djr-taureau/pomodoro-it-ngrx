@@ -27,6 +27,7 @@ import { NgxOAuthModule } from 'ngx-oauth-client';
 import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
 import { TestTableComponent } from './test-table/test-table.component';
 
+
 @NgModule({
   imports: [
     NgxOAuthModule,

@@ -23,8 +23,8 @@ import * as Auth from '../../auth/actions/auth';
       <app-nav-item (navigate)="closeSidenav()" *ngIf="loggedIn$ | async" routerLink="/tasks/find" icon="search" hint="Find your next task!">
         Find Tasks
       </app-nav-item>
-      <app-nav-item (navigate)="closeSidenav()" *ngIf="loggedIn$ | async" routerLink="/tasks/find" icon="alarm" hint="Start your Timer!">
-        Start Your Timer
+      <app-nav-item (navigate)="closeSidenav()" *ngIf="loggedIn$ | async" routerLink="/dashboard" icon="alarm" hint="How am I doing?">
+        Stat Geek
       </app-nav-item>
         <app-nav-item (navigate)="closeSidenav()" *ngIf="!(loggedIn$ | async)">
           Sign In

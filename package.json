@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
-  "name": "pomo-doist-ngrx",
-=======
   "name": "pomo-doist",
->>>>>>> angular-upgrade
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
@@ -50,17 +46,15 @@
     "logrocket": "^0.6.10",
     "logrocket-ngrx": "^0.1.0",
     "moment": "^2.22.1",
+    "ngrx-data": "^6.0.2-beta.10",
+    "ngrx-forms": "^3.0.2",
     "ngrx-store-freeze": "^0.2.1",
     "ngx-model": "^6.0.1",
     "ngx-oauth-client": "^0.3.0",
     "node-sass": "^4.9.0",
     "rxjs": "^6.0.0",
     "rxjs-compat": "^6.2.0",
-<<<<<<< HEAD
-    "serve": "^9.1.0",
-=======
     "serverless-google-cloudfunctions": "^1.2.0",
->>>>>>> angular-upgrade
     "todoist-api-ts": "^1.0.3",
     "tslib": "^1.9.1",
     "zone.js": "^0.8.26"
