@@ -1,0 +1,5 @@
+provider:
+  name: google
+  runtime: nodejs
+  project: my-serverless-project-1234
+  credentials: ~/.gcloud/pomo-doist-ed209c66c854.json

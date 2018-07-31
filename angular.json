@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ngrx5-example-app": {
+    "pomo-doist": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -48,18 +48,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ngrx5-example-app:build"
+            "browserTarget": "pomo-doist:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ngrx5-example-app:build:production"
+              "browserTarget": "pomo-doist:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ngrx5-example-app:build"
+            "browserTarget": "pomo-doist:build"
           }
         },
         "test": {
@@ -102,7 +102,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "ngrx5-example-app:serve"
+            "devServerTarget": "pomo-doist:serve"
           }
         },
         "lint": {
@@ -119,7 +119,7 @@
       }
     }
   },
-  "defaultProject": "ngrx5-example-app",
+  "defaultProject": "pomo-doist",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",
